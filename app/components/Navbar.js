@@ -677,25 +677,6 @@ export default function Navbar({
                       <span>{t('navbar.menu.admin')}</span>
                     </button>
                   )}
-                  <button
-                    onClick={() => {
-                      setShowProfile(false);
-                      router.push('/download');
-                    }}
-                    className={`w-full p-3 rounded-lg text-sm flex items-center gap-3 transition-colors mt-1
-                      ${
-                        theme === "dark"
-                          ? "hover:bg-gray-700/50 text-gray-200 hover:text-white"
-                          : "hover:bg-gray-100/50 text-gray-700 hover:text-gray-900"
-                      }`}
-                  >
-                    <div className="w-7 h-7 flex items-center justify-center">
-                      <svg className="w-[1.125rem] h-[1.125rem]" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M4 16L4 17C4 18.6569 5.34315 20 7 20L17 20C18.6569 20 20 18.6569 20 17L20 16M16 12L12 16M12 16L8 12M12 16L12 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
-                    </div>
-                    <span>{t('navbar.menu.download')}</span>
-                  </button>
                 </div>
 
                 {/* Divider */}
