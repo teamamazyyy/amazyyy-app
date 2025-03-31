@@ -2,7 +2,10 @@ import { createClient } from '@supabase/supabase-js';
 import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+// Fix the Stripe initialization by using proper configuration format
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+  apiVersion: '2023-10-16' // Using a stable API version
+});
 
 // Initialize Supabase client with service role key
 const supabase = createClient(
