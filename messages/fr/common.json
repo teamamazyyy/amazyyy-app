@@ -1,0 +1,378 @@
+{
+  "navigation": {
+    "saved": "Sauvegardés",
+    "settings": "Paramètres"
+  },
+  "newsListDrawer": {
+    "title": "Actualités",
+    "tabs": {
+      "all": "Tout",
+      "unread": "Non lu",
+      "saved": "Sauvegardé"
+    },
+    "sections": {
+      "saved": {
+        "title": "Sauvegardés",
+        "empty": "Aucun article sauvegardé"
+      },
+      "recent": {
+        "title": "Récents",
+        "empty": "Pas de nouvelles pour le moment",
+        "loading": "Chargement des nouvelles...",
+        "failed": "Échec du chargement des nouvelles. Veuillez réessayer."
+      },
+      "more": {
+        "title": "Plus",
+        "empty": "Pas plus d'articles"
+      }
+    },
+    "status": {
+      "read": "Lu",
+      "unread": "Non lu",
+      "saved": "Sauvegardé",
+      "finished": "Terminé"
+    },
+    "time": {
+      "today": "Aujourd'hui"
+    }
+  },
+  "common": {
+    "signOut": "Se déconnecter",
+    "save": "Sauvegarder",
+    "cancel": "Le garder ! 🌟",
+    "loading": "Chargement...",
+    "error": "Une erreur est survenue",
+    "success": "Succès !",
+    "edit": "Modifier",
+    "required": "Requis",
+    "verified": "Vérifié",
+    "noUsername": "Pas de nom d'utilisateur",
+    "setUsername": "Définir le nom d'utilisateur",
+    "viewProfile": "Voir le profil",
+    "checkingUpdates": "Recherche de mises à jour...",
+    "upToDate": "À jour",
+    "updateAvailable": "Mise à jour disponible",
+    "checkForUpdates": "Vérifier les mises à jour",
+    "installUpdate": "Installer la mise à jour",
+    "viewReleaseNotes": "Voir les notes de version"
+  },
+  "settings": {
+    "title": "Paramètres du compte",
+    "sections": {
+      "profile": "Profil",
+      "language": "Langue",
+      "appearance": "Apparence",
+      "goals": "Objectifs de lecture",
+      "data": "Gestion des données",
+      "software": "Informations logicielles"
+    },
+    "profile": {
+      "title": "Informations du profil",
+      "username": "Nom d'utilisateur",
+      "japaneseLevel": "Niveau de japonais",
+      "googleAccount": "Compte Google",
+      "accountSecured": "Votre compte est sécurisé avec Google Sign In",
+      "selfIntroduction": "Présentation",
+      "noIntroduction": "Pas de présentation",
+      "duolingoProfile": "Profil Duolingo",
+      "noDuolingo": "Pas de profil Duolingo lié",
+      "jlptLevels": {
+        "n5": "N5 (Débutant)",
+        "n4": "N4 (Élémentaire)",
+        "n3": "N3 (Intermédiaire)",
+        "n2": "N2 (Avancé)",
+        "n1": "N1 (Expert)",
+        "native": "Natif",
+        "descriptions": {
+          "n5": "Débute en japonais. Peut comprendre et utiliser des expressions familières et des phrases très basiques.",
+          "n4": "Compréhension basique du japonais utilisé dans des situations quotidiennes. Peut lire des passages simples et suivre des conversations lentes.",
+          "n3": "Compréhension du japonais utilisé dans des situations quotidiennes jusqu'à un certain degré. Peut lire des journaux avec un vocabulaire de base.",
+          "n2": "Capacité à comprendre le japonais utilisé dans des situations quotidiennes et dans diverses circonstances. Peut lire les journaux et suivre les informations télévisées.",
+          "n1": "Capacité à comprendre le japonais utilisé dans une variété de circonstances. Peut lire couramment les journaux et les magazines.",
+          "native": "Maîtrise native ou quasi-native du japonais."
+        }
+      }
+    },
+    "language": {
+      "title": "Paramètres de langue",
+      "interface": "Langue de l'interface",
+      "interfaceDescription": "Sélectionnez votre langue préférée pour l'interface de l'application",
+      "translation": "Langue de traduction",
+      "translationDescription": "Sélectionnez votre langue préférée pour les traductions d'articles"
+    },
+    "appearance": {
+      "title": "Apparence",
+      "theme": {
+        "title": "Thème",
+        "light": "Clair",
+        "dark": "Sombre"
+      }
+    },
+    "goals": {
+      "title": "Objectifs de lecture",
+      "description": "Définissez vos objectifs quotidiens de lecture et suivez vos progrès",
+      "articles": {
+        "title": "Objectif quotidien d'articles",
+        "description": "Défiez-vous de lire un nombre spécifique d'articles chaque jour. Commencez petit et augmentez progressivement à mesure que vous gagnez en confiance.",
+        "current": "articles"
+      },
+      "time": {
+        "title": "Objectif quotidien de temps de lecture",
+        "description": "Réservez du temps dédié à la pratique de la lecture. Même quelques minutes de lecture concentrée chaque jour peuvent améliorer significativement votre compréhension.",
+        "current": "minutes",
+        "custom": "Personnalisé"
+      }
+    },
+    "data": {
+      "title": "Gestion des données",
+      "readingHistory": {
+        "title": "Réinitialiser l'historique de lecture",
+        "description": "Supprime tout votre historique d'articles terminés et réinitialise les statistiques de lecture. Cette action ne peut pas être annulée.",
+        "button": "Réinitialiser l'historique de lecture",
+        "warning": "Attention : Vous êtes sur le point de supprimer tout votre historique de lecture.\n\nCela inclut :\n- Tous les articles marqués comme terminés\n- Votre suivi de progression de lecture\n- Vos records de séries (meilleure série et série actuelle)\n\nCette action est PERMANENTE et NE PEUT PAS être annulée. Êtes-vous sûr de vouloir continuer ?",
+        "confirmText": "réinitialiser l'historique de lecture"
+      },
+      "savedArticles": {
+        "title": "Réinitialiser les articles sauvegardés",
+        "description": "Supprime tous vos articles sauvegardés. Cette action ne peut pas être annulée.",
+        "button": "Réinitialiser les articles sauvegardés",
+        "warning": "Attention : Vous êtes sur le point de supprimer tous vos articles sauvegardés.\n\nCela inclut :\n- Tous les articles que vous avez sauvegardés pour plus tard\n- Vos articles sauvegardés\n\nCette action est PERMANENTE et NE PEUT PAS être annulée. Êtes-vous sûr de vouloir continuer ?",
+        "confirmText": "réinitialiser les articles sauvegardés"
+      }
+    },
+    "software": {
+      "title": "Informations logicielles",
+      "description": "Informations sur votre version installée et les mises à jour disponibles.",
+      "version": "Version",
+      "update": "Mise à jour disponible",
+      "updateDescription": "Mettez à jour maintenant pour obtenir les dernières fonctionnalités, améliorations et corrections de bugs.",
+      "fetchingVersion": "Vérification de la version..."
+    },
+    "membership": {
+      "title": "Plans d'Abonnement",
+      "currentPlan": "Plan Actuel",
+      "basicPlan": "Plan Gratuit",
+      "premiumPlan": "Plan Premium",
+      "free": "Gratuit",
+      "premiumPrice": "env. 12 €",
+      "yearlyPrice": "env. 8 €",
+      "month": "mois",
+      "year": "an",
+      "monthly": "Mensuel",
+      "yearly": "Annuel",
+      "monthlySubscribe": "S'abonner Mensuellement",
+      "yearlySubscribe": "S'abonner Annuellement",
+      "processing": "Traitement en cours...",
+      "yearlyDiscount": "Économisez 33% avec la facturation annuelle",
+      "unlimitedAccess": "Débloquez toutes les fonctionnalités premium",
+      "unlimited": "Illimité",
+      "premiumOnly": "Premium Uniquement",
+      "premiumLabel": "Premium",
+      "basicLabel": "Basique",
+      "allFreeFeatures": "Toutes les fonctionnalités du Plan Gratuit, plus :",
+      "features": {
+        "freeFeatures": "Fonctionnalités Gratuites",
+        "newsBrowsing": "Articles d'Actualités Récents",
+        "translation": "Traduction",
+        "voice": "Voix Japonaise Avancée",
+        "aiTutor": "Tuteur IA",
+        "wordBank": "Banque de Mots"
+      },
+      "descriptions": {
+        "newsBrowsing": "Accès illimité aux articles en japonais avec mises à jour quotidiennes",
+        "translation": "Traduction japonais-anglais professionnelle pour chaque phrase",
+        "voice": "Voix japonaise de haute qualité avec prononciation naturelle",
+        "aiTutor": "Assistant IA personnel pour l'apprentissage du japonais",
+        "wordBank": "Système complet de révision de vocabulaire personnalisé",
+        "freeFeatures": "Toutes les fonctionnalités du Plan Gratuit, plus :"
+      },
+      "limits": {
+        "newsBrowsing": {
+          "free": "5 articles par jour",
+          "basic": "10 articles par jour",
+          "premium": "Accès illimité"
+        },
+        "translation": {
+          "free": "100 phrases par jour",
+          "basic": "500 phrases par jour",
+          "premium": "Illimité"
+        },
+        "voice": {
+          "premium": "Voix de haute qualité avec IA naturelle",
+          "basic": "Voix japonaise standard",
+          "free": "Voix japonaise standard"
+        },
+        "aiTutor": {
+          "free": "5 questions par jour",
+          "basic": "20 questions par jour",
+          "premium": "Accès illimité"
+        },
+        "wordBank": {
+          "free": "100 mots maximum",
+          "basic": "500 mots maximum",
+          "premium": "Stockage illimité"
+        }
+      },
+      "comingSoon": "Bientôt disponible",
+      "featureRequest": "Une fonctionnalité en tête ?",
+      "suggestFeature": "Suggérez-la ici",
+      "checkoutError": "Une erreur s'est produite lors du démarrage du processus de paiement. Veuillez réessayer."
+    }
+  },
+  "reader": {
+    "loading": "Chargement de l'article...",
+    "error": "Échec du chargement de l'article",
+    "save": "Sauvegarder l'article",
+    "unsave": "Retirer des sauvegardés",
+    "saved": "Article sauvegardé !",
+    "translationLanguage": "Langue de traduction",
+    "loadingVoices": "Chargement des voix...",
+    "markAsFinished": "Marquer comme terminé",
+    "finishedReading": "Lecture terminée",
+    "learningMode": {
+      "enable": "Activer le mode apprentissage",
+      "disable": "Désactiver le mode apprentissage"
+    },
+    "navigation": {
+      "previous": "Phrase précédente",
+      "next": "Phrase suivante"
+    },
+    "playback": {
+      "loading": "Chargement de la voix...",
+      "play": "Lire",
+      "pause": "Pause"
+    },
+    "repeat": {
+      "none": "Pas de répétition",
+      "one": "Répéter la phrase actuelle",
+      "all": "Répéter toutes les phrases"
+    },
+    "errors": {
+      "translationFailed": "Échec de la traduction du texte",
+      "contentUnavailable": "Contenu de l'article non disponible",
+      "contentRemoved": "Cet article a peut-être été supprimé ou n'est plus accessible",
+      "failedToLoadVoices": "Échec du chargement des voix",
+      "failedToChangeVoice": "Échec du changement de voix",
+      "waitForArticleLoad": "Veuillez attendre le chargement de l'article"
+    },
+    "messages": {
+      "translationComplete": "Toutes les phrases ont été traduites avec succès",
+      "translationError": "Échec de la traduction de certaines phrases",
+      "premiumVoicesOnly": "Les voix premium sont uniquement disponibles avec un abonnement premium",
+      "signInToSaveArticles": "Connectez-vous pour sauvegarder des articles",
+      "premiumFeatureAITutor": "Le Tuteur IA est une fonctionnalité premium",
+      "premiumFeatureAccess": "Cette fonctionnalité nécessite un abonnement premium"
+    },
+    "preferences": {
+      "title": "Préférences du lecteur d'articles",
+      "fontSize": "Taille de police",
+      "furigana": "Furigana",
+      "furiganaToggle": {
+        "show": "Afficher les furigana",
+        "hide": "Masquer les furigana",
+        "hover": "Afficher au survol"
+      },
+      "readingSpeed": "Vitesse de lecture",
+      "speeds": {
+        "slow": "Lent",
+        "relaxed": "Détendu",
+        "normal": "Normal",
+        "fast": "Rapide",
+        "veryFast": "Très rapide"
+      },
+      "theme": {
+        "title": "Thème",
+        "light": "Clair",
+        "dark": "Sombre"
+      },
+      "voice": "Voix",
+      "updating": "Mise à jour des préférences..."
+    },
+    "unfinish": {
+      "title": "Attendez ! Êtes-vous sûr ?",
+      "subtitle": "Si vous voulez juste revoir l'animation de célébration :",
+      "readAnother": "Lisez un autre article pour la revoir !",
+      "keepProgress": "Gardez une trace de vos progrès 📈",
+      "buildStreak": "Maintenez votre série de lecture 🔥",
+      "consequences": "Marquer cet article comme non lu va",
+      "removeFromList": "Le retirer de vos articles terminés",
+      "resetProgress": "Réinitialiser votre progression pour cet article",
+      "confirm": "Marquer comme non lu"
+    },
+    "translation": {
+      "clickToTranslate": "Cliquez pour voir la traduction en {{language}}",
+      "clickForAITutor": "Cliquez pour voir l'analyse du Tuteur IA"
+    },
+    "buttons": {
+      "read": "Lire",
+      "aiTutor": "Tuteur IA",
+      "translateAll": "Tout traduire",
+      "translatingAll": "Traduction en cours...",
+      "translateAllSentences": "Traduire toutes les phrases"
+    }
+  },
+  "explorer": {
+    "title": "Toutes les actualités",
+    "todayNews": "Actualités du jour",
+    "previousNews": "Actualités précédentes",
+    "allCaughtUp": "Tout est à jour !",
+    "readAllToday": "Vous avez lu tous les articles d'aujourd'hui",
+    "showAll": "Afficher tous les articles",
+    "hideFinished": "Masquer les terminés",
+    "finishedThisWeek": "terminés cette semaine",
+    "noImage": {
+      "mainichi": "L'actualité Mainichi n'a pas d'image",
+      "nhk": "L'actualité NHK n'a pas d'image",
+      "unknown": "La source inconnue n'a pas d'image",
+      "worthReading": "le contenu vaut toujours la peine d'être lu"
+    }
+  },
+  "navbar": {
+    "toggleNewsList": {
+      "show": "Afficher la liste des actualités",
+      "hide": "Masquer la liste des actualités"
+    },
+    "join": "Rejoindre",
+    "theme": {
+      "light": "Clair",
+      "dark": "Sombre"
+    },
+    "menu": {
+      "allNews": "Toutes les actualités",
+      "settings": "Paramètres",
+      "admin": "Admin (restreint)",
+      "download": "Télécharger l'application",
+      "signOut": "Se déconnecter"
+    },
+    "update": {
+      "available": "Mise à jour disponible",
+      "new": "Nouveau",
+      "install": "Installer la dernière version d'Amazyyy"
+    },
+    "profile": {
+      "avatar": "Photo de profil",
+      "setup": "Configurez votre nom d'utilisateur",
+      "required": "Requis",
+      "makeEasier": "Rendez votre profil plus facile à trouver et à partager",
+      "readingGoals": "Objectifs quotidiens de lecture",
+      "articles": "Articles",
+      "readingTime": "Temps de lecture",
+      "goalComplete": "Objectifs quotidiens atteints ! 🎉",
+      "goalExceeded": "Objectifs atteints ! Vous vous surpassez ! 🚀",
+      "almostThere": "Presque là ! {{remaining}} minutes de lecture restantes",
+      "keepGoing": "Continuez ! Plus que {{remaining}} articles",
+      "todayTarget": "Objectif du jour : {{articles}} articles et {{minutes}} minutes",
+      "extendStreak": "Prolongez votre série",
+      "startStreak": "Commencez votre série",
+      "days": "jours",
+      "day1": "Jour 1",
+      "keepStreak": "Lisez au moins un article pour maintenir votre série",
+      "streak": "Série",
+      "today": "aujourd'hui",
+      "read": "Lu"
+    },
+    "logo": {
+      "title": "Amazyyy"
+    }
+  }
+}

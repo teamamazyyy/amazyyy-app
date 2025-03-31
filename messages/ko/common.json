@@ -1,0 +1,374 @@
+{
+  "navigation": {
+    "saved": "저장됨",
+    "settings": "설정"
+  },
+  "newsListDrawer": {
+    "title": "뉴스",
+    "tabs": {
+      "all": "전체",
+      "unread": "읽지 않음",
+      "saved": "저장됨"
+    },
+    "sections": {
+      "saved": {
+        "title": "저장된 뉴스",
+        "empty": "저장된 뉴스가 없습니다"
+      },
+      "recent": {
+        "title": "최근 뉴스",
+        "empty": "최근 뉴스가 없습니다",
+        "loading": "뉴스를 불러오는 중...",
+        "failed": "뉴스를 불러오지 못했습니다. 다시 시도해 주세요."
+      },
+      "more": {
+        "title": "더 보기",
+        "empty": "더 이상 뉴스가 없습니다"
+      }
+    },
+    "status": {
+      "read": "읽음",
+      "unread": "읽지 않음",
+      "saved": "저장됨",
+      "finished": "완료"
+    },
+    "time": {
+      "today": "오늘"
+    }
+  },
+  "common": {
+    "signOut": "로그아웃",
+    "save": "저장",
+    "cancel": "이대로 유지! 🌟",
+    "loading": "로딩 중...",
+    "error": "오류가 발생했습니다",
+    "success": "성공!",
+    "edit": "편집",
+    "required": "필수",
+    "verified": "인증됨",
+    "noUsername": "사용자 이름이 설정되지 않음",
+    "setUsername": "사용자 이름 설정",
+    "viewProfile": "프로필 보기",
+    "checkingUpdates": "업데이트 확인 중...",
+    "upToDate": "최신 버전입니다",
+    "updateAvailable": "업데이트 가능",
+    "checkForUpdates": "업데이트 확인",
+    "installUpdate": "업데이트 설치",
+    "viewReleaseNotes": "릴리스 노트 보기"
+  },
+  "settings": {
+    "title": "계정 설정",
+    "sections": {
+      "profile": "프로필",
+      "language": "언어",
+      "appearance": "외관",
+      "goals": "독서 목표",
+      "data": "데이터 관리",
+      "software": "소프트웨어 정보"
+    },
+    "profile": {
+      "title": "프로필 정보",
+      "username": "사용자 이름",
+      "japaneseLevel": "일본어 수준",
+      "googleAccount": "구글 계정",
+      "accountSecured": "구글 로그인으로 보호된 계정입니다",
+      "selfIntroduction": "자기소개",
+      "noIntroduction": "자기소개가 설정되지 않음",
+      "duolingoProfile": "듀오링고 프로필",
+      "noDuolingo": "듀오링고 프로필이 연결되지 않음",
+      "jlptLevels": {
+        "n5": "N5 (초급)",
+        "n4": "N4 (기초)",
+        "n3": "N3 (중급)",
+        "n2": "N2 (고급)",
+        "n1": "N1 (최상급)",
+        "native": "원어민",
+        "descriptions": {
+          "n5": "일본어를 막 시작한 단계. 일상적인 표현과 매우 기본적인 문구를 이해하고 사용할 수 있습니다.",
+          "n4": "일상적인 상황에서 사용되는 기본적인 일본어를 이해. 간단한 문장을 읽고 천천한 대화를 따라갈 수 있습니다.",
+          "n3": "일상적인 상황에서 사용되는 일본어를 어느 정도 이해. 기본적인 어휘가 포함된 신문을 읽을 수 있습니다.",
+          "n2": "일상적인 상황과 다양한 상황에서 사용되는 일본어를 이해. 신문을 읽고 TV 뉴스를 따라갈 수 있습니다.",
+          "n1": "다양한 상황에서 사용되는 일본어를 이해. 신문과 잡지를 유창하게 읽을 수 있습니다.",
+          "native": "일본어 원어민 또는 그에 준하는 능력."
+        }
+      }
+    },
+    "language": {
+      "title": "언어 설정",
+      "interface": "인터페이스 언어",
+      "interfaceDescription": "애플리케이션 인터페이스에 사용할 언어를 선택하세요",
+      "translation": "번역 언어",
+      "translationDescription": "기사 번역에 사용할 언어를 선택하세요"
+    },
+    "appearance": {
+      "title": "외관",
+      "theme": {
+        "title": "테면 모드",
+        "light": "라이트",
+        "dark": "다크"
+      }
+    },
+    "goals": {
+      "title": "독서 목표",
+      "description": "일일 독서 목표를 설정하고 진행 상황을 추적하세요",
+      "articles": {
+        "title": "일일 기사 목표",
+        "description": "매일 읽을 기사 수를 설정하세요. 적은 수에서 시작하여 자신감이 생기면 점차 늘려가세요.",
+        "current": "기사"
+      },
+      "time": {
+        "title": "일일 독서 시간 목표",
+        "description": "독서 연습을 위한 시간을 확보하세요. 매일 몇 분이라도 집중해서 읽으면 이해력이 크게 향상될니다.",
+        "current": "분",
+        "custom": "사용자 지정"
+      }
+    },
+    "data": {
+      "title": "데이터 관리",
+      "readingHistory": {
+        "title": "독서 기록 초기화",
+        "description": "완료한 기사 기록과 독서 통계를 모두 삭제합니다. 이 작업은 취소할 수 없습니다.",
+        "button": "독서 기록 초기화",
+        "warning": "경고: 모든 독서 기록을 삭제하려고 합니다.\n\n다음이 포함됩니다:\n- 완료로 표시된 모든 기사\n- 독서 진행 상황 추적\n- 연속 기록 (최고 기록과 현재 기록)\n\n이 작업은 영구적이며 취소할 수 없습니다. 계속하시겠습니까?",
+        "confirmText": "독서 기록 초기화"
+      },
+      "savedArticles": {
+        "title": "저장된 기사 초기화",
+        "description": "저장한 모든 기사를 삭제합니다. 이 작업은 취소할 수 없습니다.",
+        "button": "저장된 기사 초기화",
+        "warning": "경고: 저장된 모든 기사를 삭제하려고 합니다.\n\n다음이 포함됩니다:\n- 나중에 읽기 위해 저장한 모든 기사\n- 저장된 기사\n\n이 작업은 영구적이며 취소할 수 없습니다. 계속하시겠습니까?",
+        "confirmText": "저장된 기사 초기화"
+      }
+    },
+    "software": {
+      "title": "소프트웨어 정보",
+      "description": "설치된 버전과 사용 가능한 업데이트에 대한 정보입니다.",
+      "version": "버전",
+      "update": "업데이트 가능",
+      "updateDescription": "최신 기능, 개선 사항 및 버그 수정을 적용하려면 업데이트하세요.",
+      "fetchingVersion": "버전 확인 중..."
+    },
+    "membership": {
+      "title": "멤버십 플랜",
+      "currentPlan": "현재 플랜",
+      "basicPlan": "무료 플랜",
+      "premiumPlan": "프리미엄 플랜",
+      "free": "무료",
+      "premiumPrice": "약 ₩12,000",
+      "yearlyPrice": "약 ₩8,000",
+      "month": "월",
+      "year": "년",
+      "monthly": "월간",
+      "yearly": "연간",
+      "monthlySubscribe": "월간 구독하기",
+      "yearlySubscribe": "연간 구독하기",
+      "processing": "처리 중...",
+      "yearlyDiscount": "연간 결제로 33% 절약",
+      "unlimitedAccess": "모든 프리미엄 기능 이용 가능",
+      "unlimited": "무제한",
+      "premiumOnly": "프리미엄 전용",
+      "premiumLabel": "프리미엄",
+      "basicLabel": "기본",
+      "allFreeFeatures": "무료 플랜의 모든 기능에 추가로:",
+      "comingSoon": "출시 예정",
+      "featureRequest": "원하는 기능이 있으신가요?",
+      "suggestFeature": "여기서 제안하기",
+      "checkoutError": "결제 프로세스를 시작하는 중 오류가 발생했습니다. 다시 시도해 주세요.",
+      "features": {
+        "newsBrowsing": "최신 뉴스 기사",
+        "translation": "번역",
+        "voice": "고급 일본어 음성",
+        "aiTutor": "AI 튜터",
+        "wordBank": "단어장",
+        "freeFeatures": "무료 플랜 기능"
+      },
+      "descriptions": {
+        "newsBrowsing": "일본어 뉴스 기사 무제한 이용",
+        "translation": "각 문장의 일본어에서 영어로 번역",
+        "voice": "자연스러운 발음의 고품질 일본어 음성",
+        "aiTutor": "문장별로 문법, 어휘, 문화적 맥락을 자세히 설명해주는 대화형 AI 튜터",
+        "wordBank": "단어 저장 및 복습"
+      },
+      "limits": {
+        "newsBrowsing": {
+          "premium": "영구 무료",
+          "basic": "영구 무료",
+          "free": "영구 무료"
+        },
+        "translation": {
+          "premium": "무제한",
+          "basic": "무제한",
+          "free": "무제한"
+        },
+        "voice": {
+          "premium": "AI 기반 고품질 자연 음성",
+          "basic": "표준 일본어 음성",
+          "free": "표준 일본어 음성"
+        },
+        "aiTutor": {
+          "premium": "무제한 이용",
+          "basic": "프리미엄 전용",
+          "free": "사용 불가"
+        },
+        "wordBank": {
+          "premium": "출시 예정",
+          "basic": "프리미엄 전용",
+          "free": "사용 불가"
+        }
+      }
+    }
+  },
+  "reader": {
+    "loading": "기사 로딩 중...",
+    "error": "기사 로딩 실패",
+    "save": "기사 저장",
+    "unsave": "저장 취소",
+    "saved": "기사가 저장되었습니다!",
+    "translationLanguage": "번역 언어",
+    "loadingVoices": "음성 로딩 중...",
+    "markAsFinished": "읽음으로 표시",
+    "finishedReading": "읽기 완료",
+    "learningMode": {
+      "enable": "학습 모드 활성화",
+      "disable": "학습 모드 비활성화"
+    },
+    "navigation": {
+      "previous": "이전 문장",
+      "next": "다음 문장"
+    },
+    "playback": {
+      "loading": "음성 로딩 중...",
+      "play": "재생",
+      "pause": "일시정지"
+    },
+    "repeat": {
+      "none": "반복 없음",
+      "one": "현재 문장 반복",
+      "all": "모든 문장 반복"
+    },
+    "errors": {
+      "translationFailed": "텍스트 번역 실패",
+      "contentUnavailable": "기사 내용을 사용할 수 없습니다",
+      "contentRemoved": "이 기사가 삭제되었거나 더 이상 접근할 수 없습니다",
+      "failedToLoadVoices": "음성 로드 실패",
+      "failedToChangeVoice": "음성 변경 실패",
+      "waitForArticleLoad": "기사가 로드될 때까지 기다려주세요"
+    },
+    "messages": {
+      "translationComplete": "모든 문장이 성공적으로 번역되었습니다",
+      "translationError": "일부 문장 번역 실패",
+      "premiumVoicesOnly": "프리미엄 음성은 프리미엄 구독자만 이용할 수 있습니다",
+      "signInToSaveArticles": "기사를 저장하려면 로그인하세요",
+      "premiumFeatureAITutor": "AI 튜터는 프리미엄 기능입니다",
+      "premiumFeatureAccess": "이 기능은 프리미엄 구독이 필요합니다"
+    },
+    "preferences": {
+      "title": "기사 리더 설정",
+      "fontSize": "글자 크기",
+      "furigana": "후리가나",
+      "furiganaToggle": {
+        "show": "후리가나 표시",
+        "hide": "후리가나 숨기기",
+        "hover": "마우스 오버 시 표시"
+      },
+      "readingSpeed": "읽기 속도",
+      "speeds": {
+        "slow": "느리게",
+        "relaxed": "여유롭게",
+        "normal": "보통",
+        "fast": "빠르게",
+        "veryFast": "매우 빠르게"
+      },
+      "theme": {
+        "title": "테마",
+        "light": "라이트",
+        "dark": "다크"
+      },
+      "voice": "음성",
+      "updating": "설정 업데이트 중..."
+    },
+    "unfinish": {
+      "title": "잠깐만요! 확실한가요?",
+      "subtitle": "축하 애니메이션을 다시 보고 싶다면:",
+      "readAnother": "다른 기사를 읽어보세요!",
+      "keepProgress": "읽기 진행 상황을 기록하세요 📈",
+      "buildStreak": "연속 기록을 이어가세요 🔥",
+      "consequences": "이 기사를 미독으로 표시하면",
+      "removeFromList": "읽은 기사 목록에서 제거됩니다",
+      "resetProgress": "이 기사의 진행 상황이 초기화됩니다",
+      "confirm": "미독으로 표시"
+    },
+    "translation": {
+      "clickToTranslate": "클릭하여 {{language}} 번역 보기",
+      "clickForAITutor": "AI 튜터 분석 보기"
+    },
+    "buttons": {
+      "read": "읽기",
+      "aiTutor": "AI 튜터"
+    }
+  },
+  "explorer": {
+    "title": "모든 뉴스",
+    "todayNews": "오늘의 뉴스",
+    "previousNews": "이전 뉴스",
+    "allCaughtUp": "모두 읽었습니다!",
+    "readAllToday": "오늘의 모든 기사를 읽었습니다",
+    "showAll": "모든 기사 표시",
+    "hideFinished": "완료된 기사 숨기기",
+    "finishedThisWeek": "이번 주에 완료",
+    "noImage": {
+      "mainichi": "마이니치 뉴스에는 이미지가 없습니다",
+      "nhk": "NHK 뉴스에는 이미지가 없습니다",
+      "unknown": "알 수 없는 출처의 이미지가 없습니다",
+      "worthReading": "내용은 읽을 가치가 있습니다"
+    }
+  },
+  "navbar": {
+    "toggleNewsList": {
+      "show": "뉴스 목록 표시",
+      "hide": "뉴스 목록 숨기기"
+    },
+    "join": "가입하기",
+    "theme": {
+      "light": "라이트",
+      "dark": "다크"
+    },
+    "menu": {
+      "allNews": "모든 뉴스",
+      "settings": "설정",
+      "admin": "관리자 (제한됨)",
+      "download": "앱 다운로드",
+      "signOut": "로그아웃"
+    },
+    "update": {
+      "available": "업데이트 가능",
+      "new": "신규",
+      "install": "Amazyyy 뉴스의 최신 버전 설치"
+    },
+    "profile": {
+      "avatar": "프로필 사진",
+      "setup": "사용자 이름 설정",
+      "required": "필수",
+      "makeEasier": "프로필을 더 쉽게 찾고 공유할 수 있게 만들기",
+      "readingGoals": "오늘의 독서 목표",
+      "articles": "기사",
+      "readingTime": "독서 시간",
+      "goalComplete": "오늘의 목표 달성! 🎉",
+      "goalExceeded": "목표 달성! 더 높이 도약하세요! 🚀",
+      "almostThere": "거의 다 왔어요! {{remaining}}분 더 읽기",
+      "keepGoing": "계속 하세요! {{remaining}}개의 기사가 남았습니다",
+      "todayTarget": "오늘의 목표: {{articles}}개의 기사와 {{minutes}}분",
+      "extendStreak": "연속 기록 연장하기",
+      "startStreak": "연속 기록 시작하기",
+      "days": "일",
+      "day1": "1일차",
+      "keepStreak": "연속 기록을 유지하려면 최소 한 개의 기사를 읽으세요",
+      "streak": "연속 기록",
+      "today": "오늘",
+      "read": "읽음"
+    },
+    "logo": {
+      "title": "Amazyyy"
+    }
+  }
+}

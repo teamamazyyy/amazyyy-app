@@ -1,0 +1,376 @@
+{
+  "navigation": {
+    "saved": "Đã lưu",
+    "settings": "Cài đặt"
+  },
+  "newsListDrawer": {
+    "title": "Tin tức mới",
+    "tabs": {
+      "all": "Tất cả",
+      "unread": "Chưa đọc",
+      "saved": "Đã lưu"
+    },
+    "sections": {
+      "saved": {
+        "title": "Đã lưu",
+        "empty": "Chưa có tin tức nào được lưu"
+      },
+      "recent": {
+        "title": "Gần đây",
+        "empty": "Không có tin tức mới",
+        "loading": "Đang tải tin tức...",
+        "failed": "Không thể tải tin tức. Vui lòng thử lại."
+      },
+      "more": {
+        "title": "Xem thêm",
+        "empty": "Không có tin tức nào khác"
+      }
+    },
+    "status": {
+      "read": "Đã đọc",
+      "unread": "Chưa đọc",
+      "saved": "Đã lưu",
+      "finished": "Đã hoàn thành"
+    },
+    "time": {
+      "today": "Hôm nay"
+    }
+  },
+  "common": {
+    "signOut": "Đăng xuất",
+    "save": "Lưu",
+    "cancel": "Giữ nguyên! 🌟",
+    "loading": "Đang tải...",
+    "error": "Đã xảy ra lỗi",
+    "success": "Thành công!",
+    "edit": "Chỉnh sửa",
+    "required": "Bắt buộc",
+    "verified": "Đã xác minh",
+    "noUsername": "Chưa đặt tên người dùng",
+    "setUsername": "Đặt tên người dùng",
+    "viewProfile": "Xem hồ sơ",
+    "checkingUpdates": "Đang kiểm tra cập nhật...",
+    "upToDate": "Đã cập nhật",
+    "updateAvailable": "Có bản cập nhật mới",
+    "checkForUpdates": "Kiểm tra cập nhật",
+    "installUpdate": "Cài đặt cập nhật",
+    "viewReleaseNotes": "Xem ghi chú phát hành"
+  },
+  "settings": {
+    "title": "Cài đặt tài khoản",
+    "sections": {
+      "profile": "Hồ sơ",
+      "language": "Ngôn ngữ",
+      "appearance": "Giao diện",
+      "goals": "Mục tiêu đọc",
+      "data": "Quản lý dữ liệu",
+      "software": "Thông tin phần mềm"
+    },
+    "profile": {
+      "title": "Thông tin hồ sơ",
+      "username": "Tên người dùng",
+      "japaneseLevel": "Trình độ tiếng Nhật",
+      "googleAccount": "Tài khoản Google",
+      "accountSecured": "Tài khoản của bạn được bảo vệ bằng Google Sign In",
+      "selfIntroduction": "Giới thiệu bản thân",
+      "noIntroduction": "Chưa có giới thiệu",
+      "duolingoProfile": "Hồ sơ Duolingo",
+      "noDuolingo": "Chưa liên kết hồ sơ Duolingo",
+      "jlptLevels": {
+        "n5": "N5 (Sơ cấp)",
+        "n4": "N4 (Cơ bản)",
+        "n3": "N3 (Trung cấp)",
+        "n2": "N2 (Cao cấp)",
+        "n1": "N1 (Thành thạo)",
+        "native": "Bản ngữ",
+        "descriptions": {
+          "n5": "Mới bắt đầu học tiếng Nhật. Có thể hiểu và sử dụng các biểu thức hàng ngày và câu rất cơ bản.",
+          "n4": "Hiểu biết cơ bản về tiếng Nhật được sử dụng trong tình huống hàng ngày. Có thể đọc các đoạn văn đơn giản và theo dõi các cuộc hội thoại chậm.",
+          "n3": "Hiểu tiếng Nhật được sử dụng trong tình huống hàng ngày ở mộc độ nhất định. Có thể đọc báo với từ vựng cơ bản.",
+          "n2": "Khả năng hiểu tiếng Nhật được sử dụng trong tình huống hàng ngày và trong nhiều hoàn cảnh khác nhau. Có thể đọc báo và theo dõi tin tức truyền hình.",
+          "n1": "Khả năng hiểu tiếng Nhật được sử dụng trong nhiều hoàn cảnh khác nhau. Có thể đọc trôi chảy báo và tạp chí.",
+          "native": "Thành thạo tiếng Nhật như người bản xứ hoặc gần như người bản xứ."
+        }
+      }
+    },
+    "language": {
+      "title": "Cài đặt ngôn ngữ",
+      "interface": "Ngôn ngữ giao diện",
+      "interfaceDescription": "Chọn ngôn ngữ ưa thích cho giao diện ứng dụng",
+      "translation": "Ngôn ngữ dịch",
+      "translationDescription": "Chọn ngôn ngữ ưa thích cho bản dịch bài viết"
+    },
+    "appearance": {
+      "title": "Giao diện",
+      "theme": {
+        "title": "Chế độ màu",
+        "light": "Sáng",
+        "dark": "Tối"
+      }
+    },
+    "goals": {
+      "title": "Mục tiêu đọc",
+      "description": "Đặt mục tiêu đọc hàng ngày và theo dõi tiến độ của bạn",
+      "articles": {
+        "title": "Mục tiêu bài viết hàng ngày",
+        "description": "Thử thách bản thân đọc một số lượng bài viết nhất định mỗi ngày. Bắt đầu với số ít và tăng dần khi bạn có thêm tự tin.",
+        "current": "bài viết"
+      },
+      "time": {
+        "title": "Mục tiêu thời gian đọc hàng ngày",
+        "description": "Dành thời gian cho việc luyện đọc. Chỉ cần vài phút tập trung đọc mỗi ngày cũng có thể cải thiện đáng kể khả năng hiểu của bạn.",
+        "current": "phút",
+        "custom": "Tùy chỉnh"
+      }
+    },
+    "data": {
+      "title": "Quản lý dữ liệu",
+      "readingHistory": {
+        "title": "Đặt lại lịch sử đọc",
+        "description": "Xóa tất cả lịch sử bài viết đã hoàn thành và đặt lại thống kê đọc. Hành động này không thể hoàn tác.",
+        "button": "Đặt lại lịch sử đọc",
+        "warning": "Cảnh báo: Bạn sắp xóa toàn bộ lịch sử đọc của mình.\n\nBao gồm:\n- Tất cả các bài viết đã đánh dấu là hoàn thành\n- Theo dõi tiến độ đọc của bạn\n- Kỷ lục chuỗi của bạn (cả kỷ lục tốt nhất và hiện tại)\n\nHành động này là VĨNH VIỄN và KHÔNG THỂ hoàn tác. Bạn có chắc chắn muốn tiếp tục không?",
+        "confirmText": "đặt lại lịch sử đọc"
+      },
+      "savedArticles": {
+        "title": "Đặt lại bài viết đã lưu",
+        "description": "Xóa tất cả bài viết đã lưu của bạn. Hành động này không thể hoàn tác.",
+        "button": "Đặt lại bài viết đã lưu",
+        "warning": "Cảnh báo: Bạn sắp xóa tất cả bài viết đã lưu của mình.\n\nBao gồm:\n- Tất cả các bài viết bạn đã lưu để đọc sau\n- Các bài viết đã lưu của bạn\n\nHành động này là VĨNH VIỄN và KHÔNG THỂ hoàn tác. Bạn có chắc chắn muốn tiếp tục không?",
+        "confirmText": "đặt lại bài viết đã lưu"
+      }
+    },
+    "software": {
+      "title": "Thông tin phần mềm",
+      "description": "Thông tin về phiên bản đã cài đặt và các bản cập nhật có sẵn.",
+      "version": "Phiên bản",
+      "update": "Có bản cập nhật mới",
+      "updateDescription": "Cập nhật ngay để nhận các tính năng mới nhất, cải tiến và sửa lỗi.",
+      "fetchingVersion": "Đang kiểm tra phiên bản..."
+    },
+    "membership": {
+      "title": "Gói Thành Viên",
+      "currentPlan": "Gói hiện tại",
+      "basicPlan": "Gói Miễn Phí",
+      "premiumPlan": "Gói Premium",
+      "free": "Miễn phí",
+      "premiumPrice": "khoảng 280.000₫",
+      "yearlyPrice": "khoảng 190.000₫",
+      "month": "tháng",
+      "year": "năm",
+      "monthly": "Hàng tháng",
+      "yearly": "Hàng năm",
+      "monthlySubscribe": "Đăng ký hàng tháng",
+      "yearlySubscribe": "Đăng ký hàng năm",
+      "processing": "Đang xử lý...",
+      "yearlyDiscount": "Tiết kiệm 33% với gói năm",
+      "unlimitedAccess": "Mở khóa tất cả tính năng premium",
+      "unlimited": "Không giới hạn",
+      "premiumOnly": "Chỉ dành cho Premium",
+      "premiumLabel": "Premium",
+      "basicLabel": "Cơ bản",
+      "allFreeFeatures": "Tất cả tính năng của gói Miễn phí, cộng thêm:",
+      "features": {
+        "freeFeatures": "Tính năng Miễn phí",
+        "newsBrowsing": "Tin tức mới nhất",
+        "translation": "Dịch thuật",
+        "voice": "Giọng nói tiếng Nhật Nâng cao",
+        "aiTutor": "Gia sư AI",
+        "wordBank": "Sổ từ vựng"
+      },
+      "descriptions": {
+        "newsBrowsing": "Truy cập không giới hạn tin tức tiếng Nhật",
+        "translation": "Dịch từ tiếng Nhật sang tiếng Anh cho từng câu",
+        "voice": "Giọng nói tiếng Nhật chất lượng cao với phát âm tự nhiên",
+        "aiTutor": "Gia sư AI tương tác giúp bạn hiểu ngữ pháp, từ vựng và ngữ cảnh văn hóa trong từng câu",
+        "wordBank": "Lưu từ và ôn tập sau"
+      },
+      "limits": {
+        "newsBrowsing": {
+          "free": "Miễn phí vĩnh viễn",
+          "basic": "Miễn phí vĩnh viễn",
+          "premium": "Miễn phí vĩnh viễn"
+        },
+        "translation": {
+          "free": "Không giới hạn",
+          "basic": "Không giới hạn",
+          "premium": "Không giới hạn"
+        },
+        "voice": {
+          "free": "Giọng nói tiếng Nhật tiêu chuẩn",
+          "basic": "Giọng nói tiếng Nhật tiêu chuẩn",
+          "premium": "Giọng nói chất lượng cao với AI tự nhiên"
+        },
+        "aiTutor": {
+          "free": "Chỉ dành cho Premium",
+          "basic": "Chỉ dành cho Premium",
+          "premium": "Truy cập không giới hạn"
+        },
+        "wordBank": {
+          "free": "Chỉ dành cho Premium",
+          "basic": "Chỉ dành cho Premium",
+          "premium": "Sắp ra mắt"
+        }
+      },
+      "comingSoon": "Sắp ra mắt",
+      "featureRequest": "Bạn muốn thêm tính năng mới?",
+      "suggestFeature": "Đề xuất tại đây",
+      "checkoutError": "Đã xảy ra lỗi khi bắt đầu quá trình thanh toán. Vui lòng thử lại."
+    }
+  },
+  "reader": {
+    "loading": "Đang tải bài viết...",
+    "error": "Không thể tải bài viết",
+    "save": "Lưu bài viết",
+    "unsave": "Bỏ lưu",
+    "saved": "Đã lưu bài viết!",
+    "translationLanguage": "Ngôn ngữ dịch",
+    "loadingVoices": "Đang tải giọng đọc...",
+    "markAsFinished": "Đánh dấu đã đọc",
+    "finishedReading": "Đã đọc xong",
+    "learningMode": {
+      "enable": "Bật chế độ học tập",
+      "disable": "Tắt chế độ học tập"
+    },
+    "navigation": {
+      "previous": "Câu trước",
+      "next": "Câu tiếp theo"
+    },
+    "playback": {
+      "loading": "Đang tải giọng đọc...",
+      "play": "Phát",
+      "pause": "Tạm dừng"
+    },
+    "repeat": {
+      "none": "Không lặp lại",
+      "one": "Lặp lại câu hiện tại",
+      "all": "Lặp lại tất cả câu"
+    },
+    "errors": {
+      "translationFailed": "Không thể dịch văn bản",
+      "contentUnavailable": "Nội dung bài viết không khả dụng",
+      "contentRemoved": "Bài viết này có thể đã bị xóa hoặc không còn truy cập được",
+      "failedToLoadVoices": "Không thể tải giọng đọc",
+      "failedToChangeVoice": "Không thể thay đổi giọng đọc",
+      "waitForArticleLoad": "Vui lòng đợi bài viết tải xong"
+    },
+    "messages": {
+      "translationComplete": "Tất cả câu đã được dịch thành công",
+      "translationError": "Không thể dịch một số câu",
+      "premiumVoicesOnly": "Giọng đọc cao cấp chỉ có sẵn cho người dùng Premium",
+      "signInToSaveArticles": "Đăng nhập để lưu bài viết",
+      "premiumFeatureAITutor": "Gia sư AI là tính năng Premium",
+      "premiumFeatureAccess": "Tính năng này yêu cầu gói đăng ký Premium"
+    },
+    "preferences": {
+      "title": "Tùy chỉnh trình đọc bài viết",
+      "fontSize": "Cỡ chữ",
+      "furigana": "Furigana",
+      "furiganaToggle": {
+        "show": "Hiển furigana",
+        "hide": "Ẩn furigana",
+        "hover": "Hiện khi di chuột"
+      },
+      "readingSpeed": "Tốc độ đọc",
+      "speeds": {
+        "slow": "Chậm",
+        "relaxed": "Thư thả",
+        "normal": "Bình thường",
+        "fast": "Nhanh",
+        "veryFast": "Rất nhanh"
+      },
+      "theme": {
+        "title": "Giao diện",
+        "light": "Sáng",
+        "dark": "Tối"
+      },
+      "voice": "Giọng đọc",
+      "updating": "Đang cập nhật cài đặt..."
+    },
+    "unfinish": {
+      "title": "Khoan đã! Bạn chắc chứ?",
+      "subtitle": "Nếu bạn chỉ muốn xem lại hiệu ứng chúc mừng:",
+      "readAnother": "Đọc một bài khác để xem lại!",
+      "keepProgress": "Theo dõi tiến độ của bạn 📈",
+      "buildStreak": "Duy trì chuỗi đọc của bạn 🔥",
+      "consequences": "Đánh dấu bài này chưa đọc sẽ",
+      "removeFromList": "Xóa khỏi danh sách bài đã đọc",
+      "resetProgress": "Đặt lại tiến độ cho bài này",
+      "confirm": "Đánh dấu chưa đọc"
+    },
+    "translation": {
+      "clickToTranslate": "Nhấp để xem bản dịch {{language}}",
+      "clickForAITutor": "Nhấp để xem phân tích của Trợ giảng AI"
+    },
+    "buttons": {
+      "read": "Đọc",
+      "aiTutor": "Trợ giảng AI"
+    }
+  },
+  "explorer": {
+    "title": "Tất cả tin tức",
+    "todayNews": "Tin tức hôm nay",
+    "previousNews": "Tin tức trước đó",
+    "allCaughtUp": "Đã cập nhật hết!",
+    "readAllToday": "Bạn đã đọc tất cả bài viết hôm nay",
+    "showAll": "Hiển thị tất cả bài viết",
+    "hideFinished": "Ẩn đã hoàn thành",
+    "finishedThisWeek": "đã hoàn thành tuần này",
+    "noImage": {
+      "mainichi": "Tin Mainichi không có hình ảnh",
+      "nhk": "Tin NHK không có hình ảnh",
+      "unknown": "Nguồn không xác định không có hình ảnh",
+      "worthReading": "nội dung vẫn đáng đểc"
+    }
+  },
+  "navbar": {
+    "toggleNewsList": {
+      "show": "Hiển thị danh sách tin tức",
+      "hide": "Ẩn danh sách tin tức"
+    },
+    "join": "Tham gia",
+    "theme": {
+      "light": "Sáng",
+      "dark": "Tối"
+    },
+    "menu": {
+      "allNews": "Tất cả tin tức",
+      "settings": "Cài đặt",
+      "admin": "Quản trị (hạn chế)",
+      "download": "Tải ứng dụng",
+      "signOut": "Đăng xuất",
+      "currentPlan": "Gói hiện tại",
+      "yearlySubscribe": "Đăng ký gói năm"
+    },
+    "update": {
+      "available": "Có bản cập nhật mới",
+      "new": "Mới",
+      "install": "Cài đặt phiên bản mới nhất của Amazyyy"
+    },
+    "profile": {
+      "avatar": "Ảnh đại diện",
+      "setup": "Thiết lập tên người dùng",
+      "required": "Bắt buộc",
+      "makeEasier": "Giúp hồ sơ của bạn dễ tìm thấy và chia sẻ hơn",
+      "readingGoals": "Mục tiêu đọc hàng ngày",
+      "articles": "Bài viết",
+      "readingTime": "Thời gian đọc",
+      "goalComplete": "Hoàn thành mục tiêu hôm nay! 🎉",
+      "goalExceeded": "Hoàn thành mục tiêu! Vượt xa kỳ vọng! 🚀",
+      "almostThere": "Sắp hoàn thành! Còn {{remaining}} phút đọc nữa",
+      "keepGoing": "Tiếp tục nào! Còn {{remaining}} bài viết nữa",
+      "todayTarget": "Mục tiêu hôm nay: {{articles}} bài viết và {{minutes}} phút",
+      "extendStreak": "Kéo dài chuỗi ngày",
+      "startStreak": "Bắt đầu chuỗi ngày",
+      "days": "ngày",
+      "day1": "Ngày 1",
+      "keepStreak": "Đọc ít nhất một bài viết để duy trì chuỗi ngày",
+      "streak": "Chuỗi",
+      "today": "hôm nay",
+      "read": "Đã đọc"
+    },
+    "logo": {
+      "title": "Amazyyy"
+    }
+  }
+}

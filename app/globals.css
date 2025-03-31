@@ -1,0 +1,63 @@
+:root {
+  color-scheme: light dark;
+  --theme-color: #22c55e;
+  --theme-color-dark: #166534;
+  --background-color: #ffffff;
+  --background-color-dark: #1f2937;
+}
+
+html {
+  transition: background-color 0.3s ease;
+}
+
+html.dark {
+  background-color: var(--background-color-dark);
+  color-scheme: dark;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Additional styles */
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Ruby text styles */
+ruby {
+  display: inline-flex;
+  flex-direction: column-reverse;
+  text-align: center;
+  vertical-align: bottom;
+  margin: 0;
+  white-space: nowrap;
+}
+
+rt {
+  display: block;
+  font-size: 0.5em;
+  line-height: 1;
+  text-align: center;
+  user-select: none;
+  transform: translateY(0.25em);
+  @apply text-gray-500 dark:text-gray-400;
+}
