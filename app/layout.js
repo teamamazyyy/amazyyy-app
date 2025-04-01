@@ -33,30 +33,6 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                try {
-                  // Check localStorage first
-                  const theme = localStorage.getItem('theme');
-                  const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-                  const currentTheme = theme === 'system' ? systemTheme : theme || 'light';
-                  
-                  if (currentTheme === 'dark') {
-                    document.documentElement.classList.add('dark');
-                    document.documentElement.style.backgroundColor = 'rgb(19,31,36)';
-                  } else {
-                    document.documentElement.classList.remove('dark');
-                    document.documentElement.style.backgroundColor = 'rgb(249,250,251)';
-                  }
-                } catch (e) {
-                  console.error('Error accessing localStorage:', e);
-                }
-              })();
-            `,
-          }}
-        />
         {process.env.NODE_ENV === 'production' && (
           <>
             <Script
