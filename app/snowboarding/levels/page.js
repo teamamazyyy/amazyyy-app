@@ -5,12 +5,14 @@ import { useAuth } from "@/lib/AuthContext";
 import { motion } from "framer-motion";
 import {
   FaSnowflake,
-  FaCheck,
-  FaTimes,
   FaPlay,
   FaYoutube,
   FaPlus,
   FaStar,
+  FaRegStar,
+  FaStarHalfAlt,
+  FaTimes,
+  FaCrown,
 } from "react-icons/fa";
 import { ensureDefaultSkills } from "@/lib/snowboarding";
 import { supabase } from "@/lib/supabase";
@@ -21,6 +23,70 @@ import {
   formatDuration,
   formatViewCount,
 } from "@/lib/youtube";
+
+const ratingDescriptions = {
+  0: "Not started yet",
+  1: "Beginner: Just starting to learn this skill",
+  2: "Developing: Can perform the skill with assistance",
+  3: "Intermediate: Can perform basic versions, still improving",
+  4: "Proficient: Comfortable with the skill in various conditions",
+  5: "Expert: Can teach others and perform the skill in any condition"
+};
+
+function SkillRating({ rating, onRatingChange }) {
+  const [hoveredRating, setHoveredRating] = useState(null);
+  const [showTooltip, setShowTooltip] = useState(false);
+  const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
+
+  return (
+    <div className="flex items-center space-x-1">
+      {[1, 2, 3, 4, 5].map((star) => (
+        <div key={star} className="relative">
+          <button
+            onMouseEnter={(e) => {
+              setHoveredRating(star);
+              setShowTooltip(true);
+              const rect = e.currentTarget.getBoundingClientRect();
+              setTooltipPosition({
+                x: rect.left + window.scrollX,
+                y: rect.bottom + window.scrollY + 5
+              });
+            }}
+            onMouseLeave={() => {
+              setHoveredRating(null);
+              setShowTooltip(false);
+            }}
+            onClick={() => onRatingChange(star)}
+            className={`text-lg focus:outline-none transition-colors ${
+              star <= rating
+                ? "text-yellow-400 hover:text-yellow-500"
+                : "text-gray-300 dark:text-gray-600 hover:text-yellow-400"
+            }`}
+          >
+            <FaStar />
+          </button>
+          {showTooltip && hoveredRating === star && (
+            <div
+              className="absolute z-50 w-64 px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm dark:bg-gray-700"
+              style={{
+                left: '50%',
+                transform: 'translateX(-50%)',
+                top: '100%',
+                marginTop: '0.5rem'
+              }}
+            >
+              <div className="absolute w-2 h-2 bg-gray-900 dark:bg-gray-700 transform rotate-45 -translate-x-1/2 -top-1 left-1/2"></div>
+              {ratingDescriptions[star]}
+            </div>
+          )}
+        </div>
+      ))}
+      <div className="ml-2 text-sm text-gray-500 dark:text-gray-400">
+        {ratingDescriptions[rating || 0].split(':')[0]}
+      </div>
+    </div>
+  );
+}
 
 function SnowboardingContent() {
   const { user } = useAuth();
@@ -57,18 +123,69 @@ function SnowboardingContent() {
   }, [skills]);
 
   const loadAllTutorials = async () => {
-    for (const skill of skills) {
-      if (!tutorials[skill.id] && !loadingTutorials[skill.id]) {
-        await loadTutorials(skill.id, skill.skill_name);
-      }
-    }
+    // Create an array of promises for all tutorials that need to be loaded
+    const tutorialPromises = skills
+      .filter(skill => !tutorials[skill.id] && !loadingTutorials[skill.id])
+      .map(skill => {
+        setLoadingTutorials(prev => ({ ...prev, [skill.id]: true }));
+        return searchYouTubeTutorials(skill.skill_name)
+          .then(results => {
+            setTutorials(prev => ({
+              ...prev,
+              [skill.id]: results,
+            }));
+          })
+          .finally(() => {
+            setLoadingTutorials(prev => ({ ...prev, [skill.id]: false }));
+          });
+      });
+
+    // Load all tutorials in parallel
+    await Promise.all(tutorialPromises);
   };
 
   const loadAllFavorites = async () => {
-    for (const skill of skills) {
-      if (!favorites[skill.id] && !loadingFavorites[skill.id]) {
-        await loadFavorites(skill.id);
+    try {
+      // Get all favorites in one query
+      const { data, error } = await supabase
+        .from('snowboarding_profiles')
+        .select('favorite_tutorials')
+        .eq('user_id', user.id)
+        .single();
+
+      if (error) throw error;
+
+      if (!data || !data.favorite_tutorials) {
+        // Set empty favorites for all skills
+        const emptyFavorites = skills.reduce((acc, skill) => ({
+          ...acc,
+          [skill.id]: {},
+        }), {});
+        setFavorites(emptyFavorites);
+        return;
       }
+
+      // Process favorites for all skills at once
+      const favoritesBySkill = skills.reduce((acc, skill) => {
+        const skillFavorites = data.favorite_tutorials
+          .filter(fav => fav.skill_id === skill.id)
+          .reduce((favAcc, fav) => ({ ...favAcc, [fav.video_id]: true }), {});
+        
+        return {
+          ...acc,
+          [skill.id]: skillFavorites,
+        };
+      }, {});
+
+      setFavorites(favoritesBySkill);
+    } catch (error) {
+      console.error('Error loading favorites:', error);
+      // Set empty favorites for all skills on error
+      const emptyFavorites = skills.reduce((acc, skill) => ({
+        ...acc,
+        [skill.id]: {},
+      }), {});
+      setFavorites(emptyFavorites);
     }
   };
 
@@ -92,36 +209,6 @@ function SnowboardingContent() {
     } finally {
       setLoading(false);
       setIsInitialized(true);
-    }
-  };
-
-  const toggleSkillCompletion = async (skillId, isCompleted) => {
-    try {
-      const { data, error } = await supabase
-        .from("snowboarding_skills")
-        .update({
-          is_completed: isCompleted,
-          completed_at: isCompleted ? new Date().toISOString() : null,
-        })
-        .eq("id", skillId)
-        .select();
-
-      if (error) throw error;
-
-      setSkills((prevSkills) =>
-        prevSkills.map((skill) =>
-          skill.id === skillId
-            ? {
-                ...skill,
-                is_completed: isCompleted,
-                completed_at: data[0].completed_at,
-              }
-            : skill
-        )
-      );
-    } catch (error) {
-      console.error("Error updating skill:", error);
-      setError("Failed to update skill");
     }
   };
 
@@ -167,12 +254,13 @@ function SnowboardingContent() {
     setLoadingFavorites((prev) => ({ ...prev, [skillId]: true }));
     try {
       const { data, error } = await supabase
-        .from("favorite_tutorials")
-        .select("video_id")
-        .eq("skill_id", skillId);
+        .from('snowboarding_profiles')
+        .select('favorite_tutorials')
+        .eq('user_id', user.id)
+        .single();
 
       if (error) {
-        console.error("Database error loading favorites:", {
+        console.error('Database error loading favorites:', {
           error,
           skillId,
           message: error.message,
@@ -182,8 +270,8 @@ function SnowboardingContent() {
         throw error;
       }
 
-      if (!data) {
-        console.warn("No favorites data returned for skill:", skillId);
+      if (!data || !data.favorite_tutorials) {
+        console.warn('No favorites data returned for skill:', skillId);
         setFavorites((prev) => ({
           ...prev,
           [skillId]: {},
@@ -191,15 +279,17 @@ function SnowboardingContent() {
         return;
       }
 
+      // Filter favorites for this skill and create a map of video_id -> true
+      const skillFavorites = data.favorite_tutorials
+        .filter(fav => fav.skill_id === skillId)
+        .reduce((acc, fav) => ({ ...acc, [fav.video_id]: true }), {});
+
       setFavorites((prev) => ({
         ...prev,
-        [skillId]: data.reduce(
-          (acc, fav) => ({ ...acc, [fav.video_id]: true }),
-          {}
-        ),
+        [skillId]: skillFavorites,
       }));
     } catch (error) {
-      console.error("Error loading favorites:", {
+      console.error('Error loading favorites:', {
         error,
         skillId,
         message: error.message,
@@ -219,50 +309,79 @@ function SnowboardingContent() {
     const isFavorited = favorites[skillId]?.[tutorial.video_id];
 
     try {
+      // Get current favorites
+      const { data: currentData, error: fetchError } = await supabase
+        .from('snowboarding_profiles')
+        .select('favorite_tutorials')
+        .eq('user_id', user.id)
+        .single();
+
+      if (fetchError) throw fetchError;
+
+      let updatedFavorites = currentData?.favorite_tutorials || [];
+
       if (isFavorited) {
-        const { error } = await supabase
-          .from("favorite_tutorials")
-          .delete()
-          .eq("skill_id", skillId)
-          .eq("video_id", tutorial.video_id);
-
-        if (error) throw error;
-
-        setFavorites((prev) => ({
-          ...prev,
-          [skillId]: {
-            ...prev[skillId],
-            [tutorial.video_id]: false,
-          },
-        }));
+        // Remove the tutorial from favorites
+        updatedFavorites = updatedFavorites.filter(
+          fav => !(fav.skill_id === skillId && fav.video_id === tutorial.video_id)
+        );
       } else {
-        const { error } = await supabase.from("favorite_tutorials").insert([
+        // First ensure the tutorial exists in snowboarding_tutorials
+        const { data: tutorialExists, error: checkError } = await supabase
+          .from('snowboarding_tutorials')
+          .select('video_id')
+          .eq('video_id', tutorial.video_id)
+          .single();
+
+        if (checkError) {
+          // If tutorial doesn't exist, insert it first
+          const { error: insertError } = await supabase
+            .from('snowboarding_tutorials')
+            .insert([{
+              skill_id: skillId,
+              skill_name: tutorial.skill_name || '',
+              video_id: tutorial.video_id,
+              title: tutorial.title,
+              description: tutorial.description,
+              thumbnail_url: tutorial.thumbnail_url,
+              duration: tutorial.duration,
+              view_count: tutorial.view_count,
+              published_at: tutorial.published_at,
+            }]);
+
+          if (insertError) throw insertError;
+        }
+
+        // Add the tutorial reference to favorites
+        updatedFavorites = [
+          ...updatedFavorites,
           {
-            user_id: user.id,
-            skill_id: skillId,
             video_id: tutorial.video_id,
-            title: tutorial.title,
-            description: tutorial.description,
-            thumbnail_url: tutorial.thumbnail_url,
-            duration: tutorial.duration,
-            view_count: tutorial.view_count,
-            published_at: tutorial.published_at,
+            skill_id: skillId,
+            created_at: new Date().toISOString(),
           },
-        ]);
-
-        if (error) throw error;
-
-        setFavorites((prev) => ({
-          ...prev,
-          [skillId]: {
-            ...prev[skillId],
-            [tutorial.video_id]: true,
-          },
-        }));
+        ];
       }
+
+      // Update the snowboarding_profiles table
+      const { error: updateError } = await supabase
+        .from('snowboarding_profiles')
+        .update({ favorite_tutorials: updatedFavorites })
+        .eq('user_id', user.id);
+
+      if (updateError) throw updateError;
+
+      // Update local state
+      setFavorites((prev) => ({
+        ...prev,
+        [skillId]: {
+          ...prev[skillId],
+          [tutorial.video_id]: !isFavorited,
+        },
+      }));
     } catch (error) {
-      console.error("Error toggling favorite:", error);
-      setError("Failed to update favorite status");
+      console.error('Error toggling favorite:', error);
+      setError('Failed to update favorite status');
     }
   };
 
@@ -310,6 +429,38 @@ function SnowboardingContent() {
     } catch (error) {
       console.error("Error updating skill level:", error);
       setError("Failed to update skill level");
+    }
+  };
+
+  const updateSkillRating = async (skillId, rating) => {
+    try {
+      const { data, error } = await supabase
+        .from("snowboarding_skills")
+        .update({
+          skill_rating: rating,
+          is_completed: rating >= 4, // Consider skill completed if rating is 4 or 5
+          completed_at: rating >= 4 ? new Date().toISOString() : null,
+        })
+        .eq("id", skillId)
+        .select();
+
+      if (error) throw error;
+
+      setSkills((prevSkills) =>
+        prevSkills.map((skill) =>
+          skill.id === skillId
+            ? {
+                ...skill,
+                skill_rating: rating,
+                is_completed: rating >= 4,
+                completed_at: data[0].completed_at,
+              }
+            : skill
+        )
+      );
+    } catch (error) {
+      console.error("Error updating skill rating:", error);
+      setError("Failed to update skill rating");
     }
   };
 
@@ -496,7 +647,7 @@ function SnowboardingContent() {
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ delay: index * 0.1 }}
                           className={`relative rounded-xl shadow-lg overflow-hidden transition-all duration-200 ${
-                            skill.is_completed
+                            skill.skill_rating >= 4
                               ? "bg-gradient-to-br from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20 border-2 border-green-200 dark:border-green-700/50 hover:shadow-green-100 dark:hover:shadow-green-900/20"
                               : "bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:shadow-xl"
                           }`}
@@ -508,32 +659,31 @@ function SnowboardingContent() {
                                 <div className="flex items-center gap-2 mb-2">
                                   <h3
                                     className={`text-lg font-semibold ${
-                                      skill.is_completed
+                                      skill.skill_rating >= 4
                                         ? "text-green-800 dark:text-green-300"
                                         : "text-gray-900 dark:text-white"
                                     }`}
                                   >
                                     {skill.skill_name}
                                   </h3>
-                                  {skill.completed_at && (
-                                    <span className="text-sm text-green-600 dark:text-green-400 flex items-center">
-                                      <FaCheck className="mr-1" />
-                                      {new Date(
-                                        skill.completed_at
-                                      ).toLocaleDateString()}
+                                  {skill.skill_rating >= 4 && (
+                                    <span className="px-2 py-0.5 text-xs font-medium bg-green-100/50 text-yellow-600 dark:bg-green-800/30 dark:text-yellow-400 rounded-full flex items-center">
+                                      <FaCrown />
+                                    </span>
+                                  )}
+                                  {skill.completed_at && skill.skill_rating >= 4 && (
+                                    <span className="text-sm text-green-600 dark:text-green-400">
+                                      {new Date(skill.completed_at).toLocaleDateString()}
                                     </span>
                                   )}
                                   {!skill.is_default && (
                                     <select
                                       value={skill.level}
                                       onChange={(e) =>
-                                        updateSkillLevel(
-                                          skill.id,
-                                          parseInt(e.target.value)
-                                        )
+                                        updateSkillLevel(skill.id, parseInt(e.target.value))
                                       }
                                       className={`text-sm px-2 py-1 rounded-md border ${
-                                        skill.is_completed
+                                        skill.skill_rating >= 4
                                           ? "border-green-300 dark:border-green-600 bg-green-50 dark:bg-green-900/30 text-green-800 dark:text-green-300"
                                           : "border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                                       } focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
@@ -548,36 +698,23 @@ function SnowboardingContent() {
                                 </div>
                                 <p
                                   className={`text-sm ${
-                                    skill.is_completed
+                                    skill.skill_rating >= 4
                                       ? "text-green-700 dark:text-green-400/80"
                                       : "text-gray-600 dark:text-gray-300"
                                   }`}
                                 >
                                   {skill.description}
                                 </p>
+                                <div className="mt-2">
+                                  <div className="flex items-center gap-2">
+                                    <span className="text-sm text-gray-600 dark:text-gray-400">My skill level:</span>
+                                    <SkillRating
+                                      rating={skill.skill_rating || 0}
+                                      onRatingChange={(rating) => updateSkillRating(skill.id, rating)}
+                                    />
+                                  </div>
+                                </div>
                               </div>
-                              <button
-                                onClick={() =>
-                                  toggleSkillCompletion(
-                                    skill.id,
-                                    !skill.is_completed
-                                  )
-                                }
-                                className={`ml-4 px-4 py-2 rounded-lg transition-colors ${
-                                  skill.is_completed
-                                    ? "bg-green-500 text-white hover:bg-green-600 dark:bg-green-600 dark:hover:bg-green-700 shadow-sm hover:shadow-md"
-                                    : "bg-transparent border border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-400 hover:border-blue-500 dark:hover:border-blue-400 hover:text-blue-500 dark:hover:text-blue-400"
-                                }`}
-                              >
-                                {skill.is_completed ? (
-                                  <span className="flex items-center">
-                                    <FaCheck className="mr-2" />
-                                    Done
-                                  </span>
-                                ) : (
-                                  <FaCheck />
-                                )}
-                              </button>
                             </div>
 
                             {/* Tutorials Section */}
@@ -611,9 +748,9 @@ function SnowboardingContent() {
                               ) : tutorials[skill.id]?.length > 0 ? (
                                 <div className="overflow-x-auto">
                                   <div className="flex space-x-3">
-                                    {tutorials[skill.id].map((tutorial) => (
+                                    {tutorials[skill.id].map((tutorial, index) => (
                                       <div
-                                        key={tutorial.video_id}
+                                        key={`${skill.id}-${tutorial.video_id}-${index}`}
                                         className="group relative w-40 sm:w-48 flex-shrink-0"
                                       >
                                         <a

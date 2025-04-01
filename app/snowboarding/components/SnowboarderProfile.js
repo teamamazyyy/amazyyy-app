@@ -55,16 +55,45 @@ export default function SnowboarderProfile() {
 
   const loadProfile = async () => {
     try {
-      const { data, error } = await supabase
-        .from('snowboarder_profiles')
+      // First check if profile exists
+      const { data: existingProfile, error: checkError } = await supabase
+        .from('snowboarding_profiles')
         .select('*')
         .eq('user_id', user.id)
         .single();
 
-      if (error) {
-        // If no profile exists yet, that's okay - we'll use the default formData
-        if (error.code === 'PGRST116') {
-          setProfile(null);
+      if (checkError) {
+        if (checkError.code === 'PGRST116') { // No profile found
+          // Create a new profile with default values
+          const defaultProfile = {
+            user_id: user.id,
+            height: null,
+            weight: null,
+            shoe_size: null,
+            stance: 'regular',
+            stance_width: null,
+            board_length: null,
+            board_type: 'all-mountain',
+            boot_size: null,
+            binding_size: null,
+            front_binding_angle: null,
+            back_binding_angle: null,
+            preferred_terrain: 'all-mountain',
+            riding_style: 'freestyle',
+            experience_level: 'beginner',
+            favorite_tutorials: []
+          };
+
+          const { data: newProfile, error: insertError } = await supabase
+            .from('snowboarding_profiles')
+            .insert([defaultProfile])
+            .select()
+            .single();
+
+          if (insertError) throw insertError;
+          
+          setProfile(newProfile);
+          // Set form data with empty strings for form inputs
           setFormData({
             height: '',
             weight: '',
@@ -81,26 +110,25 @@ export default function SnowboarderProfile() {
             experience_level: 'beginner'
           });
         } else {
-          throw error;
+          throw checkError;
         }
-      } else if (data) {
-        setProfile(data);
+      } else {
+        setProfile(existingProfile);
         // Convert null values to empty strings for form inputs
         setFormData({
-          ...data,
-          height: data.height?.toString() || '',
-          weight: data.weight?.toString() || '',
-          boot_size: data.boot_size?.toString() || '',
-          stance_width: data.stance_width?.toString() || '',
-          board_length: data.board_length?.toString() || '',
-          front_binding_angle: data.front_binding_angle?.toString() || '',
-          back_binding_angle: data.back_binding_angle?.toString() || '',
-          binding_size: data.binding_size?.toString() || '',
-          stance: data.stance || 'regular',
-          board_type: data.board_type || 'all-mountain',
-          preferred_terrain: data.preferred_terrain || 'all-mountain',
-          riding_style: data.riding_style || 'freestyle',
-          experience_level: data.experience_level || 'beginner'
+          height: existingProfile.height?.toString() || '',
+          weight: existingProfile.weight?.toString() || '',
+          boot_size: existingProfile.boot_size?.toString() || '',
+          stance: existingProfile.stance || 'regular',
+          stance_width: existingProfile.stance_width?.toString() || '',
+          board_length: existingProfile.board_length?.toString() || '',
+          board_type: existingProfile.board_type || 'all-mountain',
+          binding_size: existingProfile.binding_size || '',
+          front_binding_angle: existingProfile.front_binding_angle?.toString() || '',
+          back_binding_angle: existingProfile.back_binding_angle?.toString() || '',
+          preferred_terrain: existingProfile.preferred_terrain || 'all-mountain',
+          riding_style: existingProfile.riding_style || 'freestyle',
+          experience_level: existingProfile.experience_level || 'beginner'
         });
       }
     } catch (error) {
@@ -133,7 +161,7 @@ export default function SnowboarderProfile() {
       };
 
       const { data, error } = await supabase
-        .from('snowboarder_profiles')
+        .from('snowboarding_profiles')
         .upsert(processedFormData)
         .select()
         .single();
