@@ -77,6 +77,15 @@
       "noIntroduction": "No introduction set",
       "duolingoProfile": "Duolingo Profile",
       "noDuolingo": "No Duolingo profile linked",
+      "fields": {
+        "username": "Username",
+        "self_introduction": "Self Introduction",
+        "ui_language": "Interface Language",
+        "theme": "Theme",
+        "duolingo_username": "Duolingo Username",
+        "daily_reading_time_goal": "Daily Reading Time Goal",
+        "daily_articles_goal": "Daily Articles Goal"
+      },
       "jlptLevels": {
         "n5": "N5 (Beginner)",
         "n4": "N4 (Basic)",
@@ -126,6 +135,8 @@
     },
     "data": {
       "title": "Data Management",
+      "confirmPrompt": "Please type \"{{confirmText}}\" to confirm this action",
+      "confirmError": "Confirmation text did not match. Action cancelled.",
       "readingHistory": {
         "title": "Reset Reading History",
         "description": "Remove all your finished articles history and reset reading stats. This action cannot be undone.",

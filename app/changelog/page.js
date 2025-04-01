@@ -224,7 +224,7 @@ const PageContent = () => {
   useEffect(() => {
     const fetchChangelog = async () => {
       try {
-        const response = await fetch('https://raw.githubusercontent.com/teamamazyyy/amazyyy/refs/heads/main/CHANGELOG.md');
+        const response = await fetch('https://raw.githubusercontent.com/teamamazyyy/amazyyy-app/refs/heads/main/CHANGELOG.md');
         if (!response.ok) throw new Error('Failed to fetch changelog');
         const text = await response.text();
         setChangelog(text);

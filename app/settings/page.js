@@ -50,13 +50,7 @@ function SettingsContent() {
       editedUsername: profile?.username || '',
       self_introduction: profile?.self_introduction || '',
       edited_self_introduction: profile?.self_introduction || '',
-      japanese_level: profile?.japanese_level || '',
-      duolingo_username: profile?.duolingo_username || '',
-      edited_duolingo_username: profile?.duolingo_username || '',
-      daily_article_goal: profile?.daily_article_goal || 3,
-      daily_reading_time_goal: profile?.daily_reading_time_goal || 15,
       role_level: profile?.role_level || 0,
-      preferred_translation_language: profile?.preferred_translation_language || 'en',
       ui_language: profile?.ui_language || 'en'
     };
   });
@@ -77,13 +71,7 @@ function SettingsContent() {
         editedUsername: profile.username || '',
         self_introduction: profile.self_introduction || '',
         edited_self_introduction: profile.self_introduction || '',
-        japanese_level: profile.japanese_level || '',
-        duolingo_username: profile.duolingo_username || '',
-        edited_duolingo_username: profile.duolingo_username || '',
-        daily_article_goal: profile.daily_article_goal || 3,
-        daily_reading_time_goal: profile.daily_reading_time_goal || 15,
         role_level: profile.role_level || 0,
-        preferred_translation_language: profile.preferred_translation_language || 'en',
         ui_language: profile.ui_language || 'en'
       }));
       setIsProfileLoaded(true);
@@ -290,28 +278,8 @@ function SettingsContent() {
           }
           updateData = { username: value.trim() };
           break;
-        case 'japanese_level':
-          const normalizedLevel = value.toUpperCase();
-          if (!['N5', 'N4', 'N3', 'N2', 'N1', 'NATIVE'].includes(normalizedLevel)) {
-            setError(t('settings.profile.errors.invalidLevel'));
-            return;
-          }
-          updateData = { japanese_level: normalizedLevel };
-          break;
         case 'self_introduction':
           updateData = { self_introduction: value.trim() };
-          break;
-        case 'duolingo_username':
-          updateData = { duolingo_username: value.trim() };
-          break;
-        case 'daily_article_goal':
-          updateData = { daily_article_goal: value };
-          break;
-        case 'daily_reading_time_goal':
-          updateData = { daily_reading_time_goal: value };
-          break;
-        case 'preferred_translation_language':
-          updateData = { preferred_translation_language: value };
           break;
         case 'ui_language':
           updateData = { ui_language: value };
@@ -354,17 +322,14 @@ function SettingsContent() {
         }));
       }
 
-      // Trigger a custom event when goals are updated
-      if (field === 'daily_article_goal' || field === 'daily_reading_time_goal') {
-        window.dispatchEvent(new CustomEvent('goalsUpdated', { 
-          detail: { field, value } 
-        }));
-      }
-
       setShowSuccess(true);
       setTimeout(() => setShowSuccess(false), 2000);
     } catch (error) {
       console.error(`Error updating ${field}:`, error);
+      console.error('Update data was:', updateData);
+      console.error('User ID:', user?.id);
+      console.error('User object:', user);
+      console.error('Profile object:', profile);
       setError(t('settings.errors.updateFailed', { field: t(`settings.profile.fields.${field}`) }));
       setTimeout(() => setError(''), 3000);
     }
@@ -818,7 +783,7 @@ function SettingsContent() {
                               : "bg-white border-gray-200 text-gray-900"
                           } focus:outline-none focus:ring-2 focus:ring-green-500`}
                           placeholder={t(
-                            "settings.profile.usernamePlaceholder"
+                            "unique username"
                           )}
                         />
                         <div className="flex gap-2">
@@ -977,128 +942,6 @@ function SettingsContent() {
                     )}
                   </div>
 
-                  {/* Japanese Level field */}
-                  <div className="space-y-2">
-                    <label
-                      className={`block text-sm font-medium ${
-                        profileData.currentTheme === "dark"
-                          ? "text-gray-300"
-                          : "text-gray-700"
-                      }`}
-                    >
-                      <div className="flex items-center gap-2">
-                        {t("settings.profile.japaneseLevel")}
-                        <a
-                          href="https://www.jlpt.jp/e/about/levelsummary.html"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className={`text-xs transition-colors ${
-                            profileData.currentTheme === "dark"
-                              ? "text-gray-400 hover:text-gray-300"
-                              : "text-gray-500 hover:text-gray-600"
-                          }`}
-                        >
-                          <svg
-                            className="w-4 h-4"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M12 16v-4m0-4h.01M22 12c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2v2c-4.418 0-8 3.582-8 8s3.582 8 8 8 8-3.582 8-8v-2c0-5.523-4.477-10-10-10z"
-                              stroke="currentColor"
-                              strokeWidth="2"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                            />
-                          </svg>
-                        </a>
-                      </div>
-                    </label>
-                    <div className="grid grid-cols-2 gap-2">
-                      {[
-                        {
-                          level: "N5",
-                          displayLevel: t("settings.profile.jlptLevels.n5"),
-                          description: t(
-                            "settings.profile.jlptLevels.descriptions.n5"
-                          ),
-                        },
-                        {
-                          level: "N4",
-                          displayLevel: t("settings.profile.jlptLevels.n4"),
-                          description: t(
-                            "settings.profile.jlptLevels.descriptions.n4"
-                          ),
-                        },
-                        {
-                          level: "N3",
-                          displayLevel: t("settings.profile.jlptLevels.n3"),
-                          description: t(
-                            "settings.profile.jlptLevels.descriptions.n3"
-                          ),
-                        },
-                        {
-                          level: "N2",
-                          displayLevel: t("settings.profile.jlptLevels.n2"),
-                          description: t(
-                            "settings.profile.jlptLevels.descriptions.n2"
-                          ),
-                        },
-                        {
-                          level: "N1",
-                          displayLevel: t("settings.profile.jlptLevels.n1"),
-                          description: t(
-                            "settings.profile.jlptLevels.descriptions.n1"
-                          ),
-                        },
-                        {
-                          level: "NATIVE",
-                          displayLevel: t("settings.profile.jlptLevels.native"),
-                          description: t(
-                            "settings.profile.jlptLevels.descriptions.native"
-                          ),
-                        },
-                      ].map(({ level, displayLevel, description }) => (
-                        <div key={level}>
-                          <button
-                            onClick={() =>
-                              handleUpdate("japanese_level", level)
-                            }
-                            className={`w-full h-full p-3 rounded-lg text-left transition-colors ${
-                              profileData.japanese_level === level
-                                ? profileData.currentTheme === "dark"
-                                  ? "bg-green-500/10 text-green-400 border border-green-500"
-                                  : "bg-green-50 text-green-600 border border-green-500"
-                                : profileData.currentTheme === "dark"
-                                ? "bg-gray-700 text-gray-300 hover:bg-gray-600 border border-transparent"
-                                : "bg-gray-100 text-gray-600 hover:bg-gray-200 border border-transparent"
-                            }`}
-                          >
-                            <div className="flex flex-col h-[120px]">
-                              <div className="text-sm font-medium mb-2">
-                                {displayLevel}
-                              </div>
-                              <div
-                                className={`text-xs flex-1 ${
-                                  profileData.japanese_level === level
-                                    ? profileData.currentTheme === "dark"
-                                      ? "text-green-400/80"
-                                      : "text-green-600/80"
-                                    : profileData.currentTheme === "dark"
-                                    ? "text-gray-400"
-                                    : "text-gray-500"
-                                }`}
-                              >
-                                {description}
-                              </div>
-                            </div>
-                          </button>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
                   {/* Self Introduction field */}
                   <div className="space-y-2">
                     <label
@@ -1126,7 +969,6 @@ function SettingsContent() {
                               ? "bg-gray-700 border-gray-600 text-gray-100"
                               : "bg-white border-gray-200 text-gray-900"
                           } focus:outline-none focus:ring-2 focus:ring-green-500`}
-                          placeholder={t("settings.profile.introPlaceholder")}
                         />
                         <div className="flex gap-2">
                           <button
@@ -1203,131 +1045,6 @@ function SettingsContent() {
                       </div>
                     )}
                   </div>
-
-                  {/* Duolingo Username field */}
-                  <div className="space-y-2">
-                    <label
-                      className={`block text-sm font-medium ${
-                        profileData.currentTheme === "dark"
-                          ? "text-gray-300"
-                          : "text-gray-700"
-                      }`}
-                    >
-                      {t("settings.profile.duolingoProfile")}
-                    </label>
-                    {editState.duolingo ? (
-                      <div className="flex items-center gap-2">
-                        <input
-                          type="text"
-                          value={profileData.edited_duolingo_username}
-                          onChange={(e) =>
-                            setProfileData((prev) => ({
-                              ...prev,
-                              edited_duolingo_username: e.target.value,
-                            }))
-                          }
-                          className={`flex-1 px-3 py-2 rounded-lg border text-sm ${
-                            profileData.currentTheme === "dark"
-                              ? "bg-gray-700 border-gray-600 text-gray-100"
-                              : "bg-white border-gray-200 text-gray-900"
-                          } focus:outline-none focus:ring-2 focus:ring-green-500`}
-                          placeholder="Duolingo username"
-                        />
-                        <div className="flex gap-2">
-                          <button
-                            onClick={() =>
-                              handleUpdate(
-                                "duolingo_username",
-                                profileData.edited_duolingo_username
-                              )
-                            }
-                            className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                              profileData.currentTheme === "dark"
-                                ? "bg-green-500/10 text-green-400 hover:bg-green-500/20"
-                                : "bg-green-50 text-green-600 hover:bg-green-100"
-                            }`}
-                          >
-                            {t("common.save")}
-                          </button>
-                          <button
-                            onClick={() => {
-                              setEditState((prev) => ({
-                                ...prev,
-                                duolingo: false,
-                              }));
-                              setProfileData((prev) => ({
-                                ...prev,
-                                edited_duolingo_username:
-                                  prev.duolingo_username,
-                              }));
-                            }}
-                            className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                              profileData.currentTheme === "dark"
-                                ? "bg-gray-700 text-gray-300 hover:bg-gray-600"
-                                : "bg-gray-100 text-gray-600 hover:bg-gray-200"
-                            }`}
-                          >
-                            {t("common.cancel")}
-                          </button>
-                        </div>
-                      </div>
-                    ) : (
-                      <div className="flex items-center justify-between">
-                        <div
-                          className={`flex items-center gap-3 ${
-                            profileData.currentTheme === "dark"
-                              ? "text-gray-300"
-                              : "text-gray-700"
-                          }`}
-                        >
-                          <img
-                            src="/icons/duolingo-app.svg"
-                            alt="Duolingo"
-                            className="w-5 h-5"
-                          />
-                          <span>
-                            {profileData.duolingo_username ||
-                              t("settings.profile.noDuolingo")}
-                          </span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          {profileData.duolingo_username && (
-                            <a
-                              href={`https://www.duolingo.com/profile/${encodeURIComponent(
-                                profileData.duolingo_username
-                              )}`}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                                profileData.currentTheme === "dark"
-                                  ? "text-gray-300 hover:bg-gray-700"
-                                  : "text-gray-600 hover:bg-gray-100"
-                              }`}
-                            >
-                              {t("common.viewProfile")}
-                            </a>
-                          )}
-                          <button
-                            onClick={() =>
-                              setEditState((prev) => ({
-                                ...prev,
-                                duolingo: true,
-                              }))
-                            }
-                            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                              profileData.currentTheme === "dark"
-                                ? "text-gray-300 hover:bg-gray-700"
-                                : "text-gray-600 hover:bg-gray-100"
-                            }`}
-                          >
-                            {t("common.edit")}
-                          </button>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-
-                  {/* End translation language preference */}
                 </div>
               </div>
             </div>
@@ -1409,52 +1126,6 @@ function SettingsContent() {
                     {t("settings.language.interfaceDescription")}
                   </p>
                 </div>
-
-                {/* Translation Language */}
-                <div className="space-y-2">
-                  <label
-                    htmlFor="translation-language"
-                    className={`block text-sm font-medium ${
-                      profileData.currentTheme === "dark"
-                        ? "text-gray-300"
-                        : "text-gray-700"
-                    }`}
-                  >
-                    {t("settings.language.translation")}
-                  </label>
-                  <select
-                    id="translation-language"
-                    value={profileData.preferred_translation_language}
-                    onChange={(e) => {
-                      const newValue = e.target.value;
-                      setProfileData((prev) => ({
-                        ...prev,
-                        preferred_translation_language: newValue,
-                      }));
-                      handleUpdate("preferred_translation_language", newValue);
-                    }}
-                    className={`w-full px-3 py-2 rounded-lg text-sm ${
-                      profileData.currentTheme === "dark"
-                        ? "bg-gray-700 border-gray-600 text-gray-100"
-                        : "bg-white border-gray-200 text-gray-900"
-                    } border focus:outline-none focus:ring-2 focus:ring-green-500`}
-                  >
-                    {Object.entries(SUPPORTED_LANGUAGES).map(([code, name]) => (
-                      <option key={code} value={code}>
-                        {name}
-                      </option>
-                    ))}
-                  </select>
-                  <p
-                    className={`text-xs ${
-                      profileData.currentTheme === "dark"
-                        ? "text-gray-400"
-                        : "text-gray-600"
-                    }`}
-                  >
-                    {t("settings.language.translationDescription")}
-                  </p>
-                </div>
               </div>
             </div>
 
@@ -1521,386 +1192,6 @@ function SettingsContent() {
                     </div>
                   </button>
                 </div>
-              </div>
-            </div>
-
-            {/* Reader's Goals Section */}
-            <div
-              id="goals"
-              className={`overflow-hidden rounded-2xl shadow-sm border backdrop-blur-sm ${
-                profileData.currentTheme === "dark"
-                  ? "bg-gray-800/80 border-gray-700/50"
-                  : "bg-white border-gray-100"
-              }`}
-            >
-              <div
-                className={`px-8 py-5 border-b ${
-                  profileData.currentTheme === "dark"
-                    ? "border-gray-700/50"
-                    : "border-gray-100"
-                }`}
-              >
-                <div className="space-y-1">
-                  <h2
-                    className={`text-base font-medium mb-1 ${
-                      profileData.currentTheme === "dark"
-                        ? "text-gray-200"
-                        : "text-gray-800"
-                    }`}
-                  >
-                    {t("settings.goals.title")}
-                  </h2>
-                  <div
-                    className={`text-sm ${
-                      profileData.currentTheme === "dark"
-                        ? "text-gray-400"
-                        : "text-gray-600"
-                    }`}
-                  >
-                    {t("settings.goals.description")}
-                  </div>
-                </div>
-              </div>
-              <div className="p-8 space-y-8">
-                {/* Daily Articles Goal */}
-                <div className="space-y-4">
-                  <div className="space-y-1">
-                    <div className="flex items-center justify-between">
-                      <label
-                        className={`block text-sm font-medium ${
-                          profileData.currentTheme === "dark"
-                            ? "text-gray-300"
-                            : "text-gray-700"
-                        }`}
-                      >
-                        {t("settings.goals.articles.title")}
-                      </label>
-                      <div
-                        className={`text-sm px-3 py-1 rounded-md ${
-                          profileData.currentTheme === "dark"
-                            ? "bg-green-500/10 text-green-400 ring-1 ring-green-500/20"
-                            : "bg-green-50 text-green-600 ring-1 ring-green-500/20"
-                        }`}
-                      >
-                        {profileData.daily_article_goal}{" "}
-                        {t("settings.goals.articles.current")}
-                      </div>
-                    </div>
-                    <p
-                      className={`text-xs ${
-                        profileData.currentTheme === "dark"
-                          ? "text-gray-400"
-                          : "text-gray-600"
-                      }`}
-                    >
-                      {t("settings.goals.articles.description")}
-                    </p>
-                  </div>
-                  <div className="flex flex-col gap-4">
-                    <div className="grid grid-cols-4 gap-2">
-                      {[1, 3, 5, 10].map((value) => (
-                        <button
-                          key={value}
-                          onClick={() => {
-                            setProfileData((prev) => ({
-                              ...prev,
-                              daily_article_goal: value,
-                            }));
-                            handleUpdate("daily_article_goal", value);
-                          }}
-                          className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                            profileData.daily_article_goal === value
-                              ? profileData.currentTheme === "dark"
-                                ? "bg-green-500/10 text-green-400 border border-green-500"
-                                : "bg-green-50 text-green-600 border border-green-500"
-                              : profileData.currentTheme === "dark"
-                              ? "bg-gray-700 text-gray-300 hover:bg-gray-600 border border-transparent"
-                              : "bg-gray-100 text-gray-600 hover:bg-gray-200 border border-transparent"
-                          }`}
-                        >
-                          {value}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Daily Reading Time Goal */}
-                <div className="space-y-4">
-                  <div className="space-y-1">
-                    <div className="flex items-center justify-between">
-                      <label
-                        className={`block text-sm font-medium ${
-                          profileData.currentTheme === "dark"
-                            ? "text-gray-300"
-                            : "text-gray-700"
-                        }`}
-                      >
-                        {t("settings.goals.time.title")}
-                      </label>
-                      <div
-                        className={`text-sm px-3 py-1 rounded-md ${
-                          profileData.currentTheme === "dark"
-                            ? "bg-green-500/10 text-green-400 ring-1 ring-green-500/20"
-                            : "bg-green-50 text-green-600 ring-1 ring-green-500/20"
-                        }`}
-                      >
-                        {profileData.daily_reading_time_goal}{" "}
-                        {t("settings.goals.time.current")}
-                      </div>
-                    </div>
-                    <p
-                      className={`text-xs ${
-                        profileData.currentTheme === "dark"
-                          ? "text-gray-400"
-                          : "text-gray-600"
-                      }`}
-                    >
-                      {t("settings.goals.time.description")}
-                    </p>
-                  </div>
-                  <div className="flex flex-col gap-4">
-                    <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
-                      <div className="col-span-2 sm:col-span-4 grid grid-cols-2 sm:grid-cols-4 gap-2">
-                        {[3, 10, 30, 60].map((value) => (
-                          <button
-                            key={value}
-                            onClick={() => {
-                              setIsCustomInput(false);
-                              setInputValue("");
-                              setProfileData((prev) => ({
-                                ...prev,
-                                daily_reading_time_goal: value,
-                              }));
-                              handleUpdate("daily_reading_time_goal", value);
-                            }}
-                            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                              !isCustomInput &&
-                              profileData.daily_reading_time_goal === value
-                                ? profileData.currentTheme === "dark"
-                                  ? "bg-green-500/10 text-green-400 ring-1 ring-green-500"
-                                  : "bg-green-50 text-green-600 ring-1 ring-green-500"
-                                : profileData.currentTheme === "dark"
-                                ? "bg-gray-700 text-gray-300 hover:bg-gray-600"
-                                : "bg-gray-100 text-gray-600 hover:bg-gray-200"
-                            }`}
-                          >
-                            {value}
-                          </button>
-                        ))}
-                      </div>
-                      <div className="relative col-span-2 sm:col-span-1">
-                        <input
-                          type="number"
-                          min="1"
-                          max="240"
-                          value={
-                            isCustomInput
-                              ? inputValue
-                              : ![3, 10, 30, 60].includes(
-                                  profileData.daily_reading_time_goal
-                                )
-                              ? profileData.daily_reading_time_goal
-                              : ""
-                          }
-                          onChange={(e) => {
-                            const value = e.target.value;
-                            setIsCustomInput(true);
-                            setInputValue(value);
-
-                            if (value === "") {
-                              return;
-                            }
-
-                            const numValue = parseInt(value);
-                            if (!isNaN(numValue)) {
-                              debouncedUpdate(numValue);
-                            }
-                          }}
-                          onFocus={() => {
-                            setIsCustomInput(true);
-                          }}
-                          onBlur={() => {
-                            if (inputValue === "") {
-                              if (
-                                ![3, 10, 30, 60].includes(
-                                  profileData.daily_reading_time_goal
-                                )
-                              ) {
-                                setInputValue(
-                                  profileData.daily_reading_time_goal.toString()
-                                );
-                              } else {
-                                setIsCustomInput(false);
-                              }
-                            }
-                          }}
-                          className={`w-full px-4 pr-8 py-2 rounded-lg text-sm font-medium transition-colors [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none ${
-                            isCustomInput ||
-                            ![3, 10, 30, 60].includes(
-                              profileData.daily_reading_time_goal
-                            )
-                              ? profileData.currentTheme === "dark"
-                                ? "bg-green-500/10 text-green-400 ring-1 ring-green-500"
-                                : "bg-green-50 text-green-600 ring-1 ring-green-500"
-                              : profileData.currentTheme === "dark"
-                              ? "bg-gray-700 text-gray-300 hover:bg-gray-600"
-                              : "bg-gray-100 text-gray-600 hover:bg-gray-200"
-                          }`}
-                          placeholder={t("settings.goals.time.custom")}
-                        />
-                        <div
-                          className={`absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none ${
-                            ![3, 10, 30, 60].includes(
-                              profileData.daily_reading_time_goal
-                            )
-                              ? profileData.currentTheme === "dark"
-                                ? "text-green-400"
-                                : "text-green-600"
-                              : profileData.currentTheme === "dark"
-                              ? "text-gray-400"
-                              : "text-gray-500"
-                          }`}
-                        >
-                          <svg
-                            className="h-4 w-4"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
-                            />
-                          </svg>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Data Management Section */}
-            <div
-              id="data"
-              className={`overflow-hidden rounded-2xl shadow-sm border ${
-                profileData.currentTheme === "dark"
-                  ? "bg-gray-800 border-gray-700"
-                  : "bg-white border-gray-100"
-              }`}
-            >
-              <div
-                className={`px-8 py-5 border-b ${
-                  profileData.currentTheme === "dark"
-                    ? "border-gray-700"
-                    : "border-gray-100"
-                }`}
-              >
-                <h2
-                  className={`text-base font-medium ${
-                    profileData.currentTheme === "dark"
-                      ? "text-gray-200"
-                      : "text-gray-900"
-                  }`}
-                >
-                  {t("settings.data.title")}
-                </h2>
-              </div>
-              <div
-                className={`divide-y ${
-                  profileData.currentTheme === "dark"
-                    ? "divide-gray-700/50"
-                    : "divide-gray-100"
-                }`}
-              >
-                {/* Reset Reading History */}
-                <div className="p-6">
-                  <div className="space-y-4">
-                    <div>
-                      <h3
-                        className={`text-base font-medium mb-1 ${
-                          profileData.currentTheme === "dark"
-                            ? "text-gray-200"
-                            : "text-gray-800"
-                        }`}
-                      >
-                        {t("settings.data.readingHistory.title")}
-                      </h3>
-                      <p
-                        className={`text-sm ${
-                          profileData.currentTheme === "dark"
-                            ? "text-gray-400"
-                            : "text-gray-600"
-                        }`}
-                      >
-                        {t("settings.data.readingHistory.description")}
-                      </p>
-                    </div>
-                    <button
-                      onClick={handleResetReadingHistory}
-                      className={`w-full px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                        profileData.currentTheme === "dark"
-                          ? "bg-red-500/10 text-red-400 hover:bg-red-500/20"
-                          : "bg-red-50 text-red-600 hover:bg-red-100"
-                      }`}
-                    >
-                      {t("settings.data.readingHistory.button")}
-                    </button>
-                  </div>
-                </div>
-
-                {/* Reset Saved Articles */}
-                <div className="p-6">
-                  <div className="space-y-4">
-                    <div>
-                      <h3
-                        className={`text-base font-medium mb-1 ${
-                          profileData.currentTheme === "dark"
-                            ? "text-gray-200"
-                            : "text-gray-800"
-                        }`}
-                      >
-                        {t("settings.data.savedArticles.title")}
-                      </h3>
-                      <p
-                        className={`text-sm ${
-                          profileData.currentTheme === "dark"
-                            ? "text-gray-400"
-                            : "text-gray-600"
-                        }`}
-                      >
-                        {t("settings.data.savedArticles.description")}
-                      </p>
-                    </div>
-                    <button
-                      onClick={handleResetSavedArticles}
-                      className={`w-full px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                        profileData.currentTheme === "dark"
-                          ? "bg-red-500/10 text-red-400 hover:bg-red-500/20"
-                          : "bg-red-50 text-red-600 hover:bg-red-100"
-                      }`}
-                    >
-                      {t("settings.data.savedArticles.button")}
-                    </button>
-                  </div>
-                </div>
-
-                {error && (
-                  <div className="px-6 py-4">
-                    <p
-                      className={`text-sm ${
-                        profileData.currentTheme === "dark"
-                          ? "text-red-400"
-                          : "text-red-600"
-                      }`}
-                    >
-                      {error}
-                    </p>
-                  </div>
-                )}
               </div>
             </div>
 

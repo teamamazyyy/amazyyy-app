@@ -7,12 +7,9 @@ export interface UserProfile {
   email: string;
   full_name: string | null;
   avatar_url: string | null;
-  reading_level: ReadingLevel;
-  preferred_voice: string | null;
-  preferred_speed: number;
-  show_furigana: boolean;
-  font_size: FontSize;
   theme: Theme;
+  self_introduction: string | null;
+  username: string | null;
   created_at: string;
   updated_at: string;
-} 
+}

@@ -86,7 +86,7 @@ export default function RootLayout({ children }) {
           <main className="flex-grow">
             {children}
           </main>
-          <Footer forceTheme="light" />
+          {/* <Footer forceTheme="light" /> */}
         </AuthProvider>
       </body>
     </html>

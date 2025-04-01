@@ -38,19 +38,6 @@ export async function updateProfile(
   return data;
 }
 
-export async function updateReadingPreferences(
-  userId: string,
-  preferences: {
-    reading_level?: ReadingLevel;
-    preferred_voice?: string;
-    preferred_speed?: number;
-    show_furigana?: boolean;
-    font_size?: FontSize;
-    theme?: Theme;
-  }
-): Promise<UserProfile | null> {
-  return updateProfile(userId, preferences);
-}
 
 export async function updateUserInfo(
   userId: string,
