@@ -401,5 +401,21 @@
       "new": "New",
       "install": "Install the latest version of Amazyyy"
     }
+  },
+  "snowboarding": {
+    "title": "Snowboarding Skills",
+    "completedOn": "Completed on",
+    "errors": {
+      "fetchFailed": "Failed to fetch skills",
+      "updateFailed": "Failed to update skill"
+    },
+    "levels": {
+      "1": "Beginner",
+      "2": "Novice",
+      "3": "Intermediate",
+      "4": "Advanced",
+      "5": "Expert",
+      "6": "Master"
+    }
   }
 }

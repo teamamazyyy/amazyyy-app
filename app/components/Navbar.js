@@ -7,6 +7,7 @@ import {
   FaFire,
   FaCheck,
   FaCrown,
+  FaSnowflake,
 } from "react-icons/fa";
 import { useAuth } from '@/lib/AuthContext';
 import { useTranslation } from '@/lib/hooks/useTranslation';
@@ -619,10 +620,11 @@ export default function Navbar({
 
                 {/* Navigation Section */}
                 <div className="p-2">
+                  {/* Snowboarding Routes */}
                   <button
                     onClick={() => {
                       setShowProfile(false);
-                      router.push('/');
+                      router.push('/snowboarding');
                     }}
                     className={`w-full p-3 rounded-lg text-sm flex items-center gap-3 transition-colors
                       ${
@@ -632,10 +634,11 @@ export default function Navbar({
                       }`}
                   >
                     <div className="w-7 h-7 flex items-center justify-center">
-                      <FaBookOpen className="w-[1.125rem] h-[1.125rem]" />
+                      <FaSnowflake className="w-[1.125rem] h-[1.125rem]" />
                     </div>
-                    <span>{t('navbar.menu.allNews')}</span>
+                    <span>Snowboarding</span>
                   </button>
+
                   <button
                     onClick={() => {
                       setShowProfile(false);
