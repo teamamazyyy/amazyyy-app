@@ -18,6 +18,8 @@ export default function SnowboardingPage() {
   const [isInitialized, setIsInitialized] = useState(false);
   const [tutorials, setTutorials] = useState({});
   const [loadingTutorials, setLoadingTutorials] = useState({});
+  const [hasMoreTutorials, setHasMoreTutorials] = useState({});
+  const [tutorialPage, setTutorialPage] = useState({});
   const [showAddSkill, setShowAddSkill] = useState(false);
   const [newSkill, setNewSkill] = useState({
     skill_name: '',
@@ -26,6 +28,8 @@ export default function SnowboardingPage() {
   });
   const [favorites, setFavorites] = useState({});
   const [loadingFavorites, setLoadingFavorites] = useState({});
+  const [showVideoModal, setShowVideoModal] = useState(false);
+  const [selectedVideo, setSelectedVideo] = useState(null);
 
   useEffect(() => {
     if (user) {
@@ -122,13 +126,24 @@ export default function SnowboardingPage() {
     6: 'Master'
   };
 
-  const loadTutorials = async (skillId, skillName) => {
-    if (tutorials[skillId] || loadingTutorials[skillId]) return;
+  const loadTutorials = async (skillId, skillName, page = 1) => {
+    if (loadingTutorials[skillId]) return;
 
     setLoadingTutorials(prev => ({ ...prev, [skillId]: true }));
     try {
-      const results = await searchYouTubeTutorials(skillName);
-      setTutorials(prev => ({ ...prev, [skillId]: results }));
+      const results = await searchYouTubeTutorials(skillName, page);
+      setTutorials(prev => ({
+        ...prev,
+        [skillId]: page === 1 ? results : [...(prev[skillId] || []), ...results]
+      }));
+      setHasMoreTutorials(prev => ({
+        ...prev,
+        [skillId]: results.length === 10 // Assuming 10 is our page size
+      }));
+      setTutorialPage(prev => ({
+        ...prev,
+        [skillId]: page
+      }));
     } catch (error) {
       console.error('Error loading tutorials:', error);
     } finally {
@@ -285,6 +300,12 @@ export default function SnowboardingPage() {
       console.error('Error updating skill level:', error);
       setError('Failed to update skill level');
     }
+  };
+
+  const handleVideoClick = (e, tutorial) => {
+    e.preventDefault(); // Prevent default link behavior
+    setSelectedVideo(tutorial);
+    setShowVideoModal(true);
   };
 
   if (loading) {
@@ -499,65 +520,76 @@ export default function SnowboardingPage() {
 
                             {/* Tutorials Section */}
                             <div className="mt-4">
-                              <div className="flex items-center text-blue-600 dark:text-blue-400 mb-3">
-                                <FaYoutube className="mr-2" />
-                                <span className="font-medium text-sm">Tutorials</span>
+                              <div className="flex items-center justify-between text-blue-600 dark:text-blue-400 mb-3">
+                                <div className="flex items-center">
+                                  <FaYoutube className="mr-2" />
+                                  <span className="font-medium text-sm">Tutorials</span>
+                                </div>
+                                {hasMoreTutorials[skill.id] && (
+                                  <button
+                                    onClick={() => loadTutorials(skill.id, skill.skill_name, (tutorialPage[skill.id] || 1) + 1)}
+                                    className="text-sm text-blue-500 hover:text-blue-600 flex items-center"
+                                  >
+                                    Load More
+                                    <FaChevronRight className="ml-1" />
+                                  </button>
+                                )}
                               </div>
 
-                              {loadingTutorials[skill.id] ? (
+                              {loadingTutorials[skill.id] && tutorialPage[skill.id] === 1 ? (
                                 <div className="flex items-center justify-center py-2">
                                   <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-blue-500"></div>
                                 </div>
                               ) : tutorials[skill.id]?.length > 0 ? (
                                 <div className="overflow-x-auto">
                                   <div className="flex space-x-3">
-                                    {[...tutorials[skill.id]]
-                                      .sort((a, b) => {
-                                        const aFavorited = favorites[skill.id]?.[a.video_id] || false;
-                                        const bFavorited = favorites[skill.id]?.[b.video_id] || false;
-                                        return bFavorited - aFavorited;
-                                      })
-                                      .map((tutorial) => (
-                                        <div key={tutorial.video_id} className="group relative w-40 sm:w-48 flex-shrink-0">
-                                          <a
-                                            href={`https://www.youtube.com/watch?v=${tutorial.video_id}`}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="block"
-                                          >
-                                            <div className="relative aspect-video rounded-lg overflow-hidden">
-                                              <img
-                                                src={tutorial.thumbnail_url}
-                                                alt={tutorial.title}
-                                                className="w-full h-full object-cover"
-                                              />
-                                              <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                                                <FaPlay className="text-white text-xl" />
-                                              </div>
+                                    {tutorials[skill.id].map((tutorial) => (
+                                      <div key={tutorial.video_id} className="group relative w-40 sm:w-48 flex-shrink-0">
+                                        <a
+                                          href={`https://www.youtube.com/watch?v=${tutorial.video_id}`}
+                                          target="_blank"
+                                          rel="noopener noreferrer"
+                                          className="block"
+                                          onClick={(e) => handleVideoClick(e, tutorial)}
+                                        >
+                                          <div className="relative aspect-video rounded-lg overflow-hidden">
+                                            <img
+                                              src={tutorial.thumbnail_url}
+                                              alt={tutorial.title}
+                                              className="w-full h-full object-cover"
+                                            />
+                                            <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                              <FaPlay className="text-white text-xl" />
                                             </div>
-                                            <div className="mt-2">
-                                              <h4 className="font-medium text-gray-900 dark:text-white text-sm line-clamp-2">
-                                                {tutorial.title}
-                                              </h4>
-                                              <div className="flex items-center text-xs text-gray-500 dark:text-gray-400 mt-1">
-                                                <span>{formatDuration(tutorial.duration)}</span>
-                                                <span className="mx-2">•</span>
-                                                <span>{formatViewCount(tutorial.view_count)} views</span>
-                                              </div>
+                                          </div>
+                                          <div className="mt-2">
+                                            <h4 className="font-medium text-gray-900 dark:text-white text-sm line-clamp-2">
+                                              {tutorial.title}
+                                            </h4>
+                                            <div className="flex items-center text-xs text-gray-500 dark:text-gray-400 mt-1">
+                                              <span>{formatDuration(tutorial.duration)}</span>
+                                              <span className="mx-2">•</span>
+                                              <span>{formatViewCount(tutorial.view_count)} views</span>
                                             </div>
-                                          </a>
-                                          <button
-                                            onClick={() => toggleFavorite(skill.id, tutorial)}
-                                            className={`absolute top-2 right-2 p-1.5 rounded-full transition-colors ${
-                                              favorites[skill.id]?.[tutorial.video_id]
-                                                ? 'bg-yellow-400 text-white hover:bg-yellow-500'
-                                                : 'bg-white/80 text-gray-600 hover:bg-white hover:text-yellow-400'
-                                            }`}
-                                          >
-                                            <FaStar className="text-sm" />
-                                          </button>
-                                        </div>
-                                      ))}
+                                          </div>
+                                        </a>
+                                        <button
+                                          onClick={() => toggleFavorite(skill.id, tutorial)}
+                                          className={`absolute top-2 right-2 p-1.5 rounded-full transition-colors ${
+                                            favorites[skill.id]?.[tutorial.video_id]
+                                              ? 'bg-yellow-400 text-white hover:bg-yellow-500'
+                                              : 'bg-white/80 text-gray-600 hover:bg-white hover:text-yellow-400'
+                                          }`}
+                                        >
+                                          <FaStar className="text-sm" />
+                                        </button>
+                                      </div>
+                                    ))}
+                                    {loadingTutorials[skill.id] && tutorialPage[skill.id] > 1 && (
+                                      <div className="w-40 sm:w-48 flex-shrink-0 flex items-center justify-center">
+                                        <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-blue-500"></div>
+                                      </div>
+                                    )}
                                   </div>
                                 </div>
                               ) : (
@@ -573,6 +605,99 @@ export default function SnowboardingPage() {
               })}
             </div>
           </div>
+
+          {/* Video Player Modal */}
+          {showVideoModal && selectedVideo && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-white/90 backdrop-blur-sm flex items-center justify-center z-50"
+              onClick={() => {
+                setShowVideoModal(false);
+                setSelectedVideo(null);
+              }}
+            >
+              <motion.div
+                initial={{ scale: 0.95, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.95, opacity: 0 }}
+                className="relative w-full max-w-4xl mx-4 bg-white rounded-2xl overflow-hidden shadow-xl"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {/* Close Button */}
+                <button
+                  onClick={() => {
+                    setShowVideoModal(false);
+                    setSelectedVideo(null);
+                  }}
+                  className="absolute top-4 right-4 p-2 rounded-full bg-white/80 hover:bg-white text-gray-600 hover:text-gray-900 transition-colors z-10 shadow-sm"
+                >
+                  <FaTimes className="text-xl" />
+                </button>
+
+                {/* Video Player */}
+                <div className="relative pt-[56.25%] bg-black">
+                  <iframe
+                    className="absolute inset-0 w-full h-full"
+                    src={`https://www.youtube.com/embed/${selectedVideo.video_id}?autoplay=1`}
+                    title={selectedVideo.title}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                </div>
+
+                {/* Video Info */}
+                <div className="p-6 border-t border-gray-100">
+                  <div className="flex items-start justify-between">
+                    <div className="flex-1">
+                      <div className="flex items-center justify-between mb-3">
+                        <h3 className="text-xl font-bold text-gray-900 line-clamp-2">
+                          {selectedVideo.title}
+                        </h3>
+                        <button
+                          onClick={() => toggleFavorite(selectedVideo.skill_id, selectedVideo)}
+                          className={`px-3 py-1.5 rounded-lg transition-colors flex items-center ${
+                            favorites[selectedVideo.skill_id]?.[selectedVideo.video_id]
+                              ? 'bg-yellow-400 text-white hover:bg-yellow-500'
+                              : 'bg-gray-100 text-gray-600 hover:bg-gray-200 hover:text-yellow-400'
+                          }`}
+                          title={favorites[selectedVideo.skill_id]?.[selectedVideo.video_id] ? "Remove from favorites" : "Add to favorites"}
+                        >
+                          <FaStar className="mr-2" />
+                          {favorites[selectedVideo.skill_id]?.[selectedVideo.video_id] ? 'Favorited' : 'Favorite'}
+                        </button>
+                      </div>
+                      <p className="text-gray-600 text-sm line-clamp-3 mb-4">
+                        {selectedVideo.description}
+                      </p>
+                      <div className="flex items-center justify-between text-gray-500 text-sm">
+                        <div className="flex items-center space-x-4">
+                          <span className="flex items-center">
+                            <FaPlay className="mr-2" />
+                            {formatDuration(selectedVideo.duration)}
+                          </span>
+                          <span className="flex items-center">
+                            <FaYoutube className="mr-2" />
+                            {formatViewCount(selectedVideo.view_count)} views
+                          </span>
+                        </div>
+                        <a
+                          href={`https://www.youtube.com/watch?v=${selectedVideo.video_id}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-500 hover:text-blue-600 flex items-center text-sm"
+                        >
+                          <FaYoutube className="mr-2" />
+                          Watch on YouTube
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
         </motion.div>
       </div>
     </>
