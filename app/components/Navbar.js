@@ -1,4 +1,6 @@
-import { useRef, useEffect, useState, useMemo, useCallback } from 'react';
+'use client';
+
+import { useRef, useEffect, useState, useMemo, useCallback, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import {
   FaUserCircle,
@@ -11,23 +13,19 @@ import {
 } from "react-icons/fa";
 import { useAuth } from '@/lib/AuthContext';
 import { useTranslation } from '@/lib/hooks/useTranslation';
-import Image from 'next/image';
 import useSystemStore from '@/lib/stores/system';
-import useStatsStore from '@/lib/stores/stats';
 import { supabase } from '@/lib/supabase';
 import { SUPPORTED_LANGUAGES } from '@/lib/constants';
 
-export default function Navbar({ 
+function NavbarContent({ 
   showSidebar, 
   onSidebarToggle,
-  theme,
   hideNewsListButton = true
 }) {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const { user, profile, signInWithGoogle, signOut } = useAuth();
+  const { user, profile, signOut, theme, updateTheme } = useAuth();
   const { version, fetchVersion } = useSystemStore();
-  const { stats, fetchStats } = useStatsStore();
   const { t } = useTranslation();
   const profileRef = useRef(null);
   const [showProfile, setShowProfile] = useState(false);
@@ -65,40 +63,10 @@ export default function Navbar({
     }
   }, [user, searchParams, profile, handledLangParam]);
 
-  // Update stats when profile is opened
-  useEffect(() => {
-    if (showProfile && user) {
-      fetchStats(user.id);
-    }
-  }, [showProfile, user, fetchStats]);
-
-  // Listen for stats updates
-  useEffect(() => {
-    const handleStatsUpdate = () => {
-      if (user && showProfile) {
-        fetchStats(user.id);
-      }
-    };
-
-    window.addEventListener('statsUpdated', handleStatsUpdate);
-    
-    return () => {
-      window.removeEventListener('statsUpdated', handleStatsUpdate);
-    };
-  }, [user, showProfile, fetchStats]);
-
   // Refresh stats periodically when profile is open
   useEffect(() => {
     if (!showProfile || !user) return;
-
-    const intervalId = setInterval(() => {
-      fetchStats(user.id);
-    }, 30000); // Refresh every 30 seconds
-
-    return () => {
-      clearInterval(intervalId);
-    };
-  }, [showProfile, user, fetchStats]);
+  }, [showProfile, user]);
 
   // Add handleSignOut function
   const handleSignOut = async () => {
@@ -247,111 +215,6 @@ export default function Navbar({
     };
   }, [refreshStats]);
 
-  // Memoize the stats display
-  const StatsDisplay = useMemo(
-    () => (
-      <div className="px-4 py-3">
-        <div className="grid grid-cols-2 gap-8">
-          <div className="flex items-start gap-3">
-            <div
-              className={`w-10 h-10 flex items-center justify-center rounded-xl ${
-                theme === "dark"
-                  ? "bg-orange-500/20 text-orange-400"
-                  : "bg-orange-100 text-orange-600"
-              }`}
-            >
-              <FaFire className="w-5 h-5" />
-            </div>
-            <div>
-              <div className="flex items-baseline gap-1.5">
-                <p
-                  className={`text-2xl font-bold ${
-                    theme === "dark" ? "text-gray-100" : "text-gray-900"
-                  }`}
-                >
-                  {stats.currentStreak}
-                </p>
-                <p
-                  className={`text-xs font-medium ${
-                    theme === "dark"
-                      ? "text-orange-400/90"
-                      : "text-orange-600/90"
-                  }`}
-                >
-                  {t("navbar.profile.days")}
-                </p>
-              </div>
-              <p
-                className={`text-xs ${
-                  theme === "dark" ? "text-gray-400" : "text-gray-500"
-                }`}
-              >
-                {t("navbar.profile.streak")}
-              </p>
-            </div>
-          </div>
-          <div className="flex items-start gap-3">
-            <div
-              className={`w-10 h-10 flex items-center justify-center rounded-xl ${
-                theme === "dark"
-                  ? "bg-green-500/20 text-green-400"
-                  : "bg-green-100 text-green-600"
-              }`}
-            >
-              <FaCheck className="w-5 h-5" />
-            </div>
-            <div>
-              <div className="flex items-baseline gap-1.5">
-                <p
-                  className={`text-2xl font-bold ${
-                    theme === "dark" ? "text-gray-100" : "text-gray-900"
-                  }`}
-                >
-                  {stats.totalFinishedArticles}
-                </p>
-                {stats.todayFinishedArticles > 0 && (
-                  <p
-                    className={`text-xs font-medium ${
-                      theme === "dark"
-                        ? "text-green-400/90"
-                        : "text-green-600/90"
-                    }`}
-                  >
-                    +{stats.todayFinishedArticles} {t("navbar.profile.today")}
-                  </p>
-                )}
-              </div>
-              <p
-                className={`text-xs ${
-                  theme === "dark" ? "text-gray-400" : "text-gray-500"
-                }`}
-              >
-                {t("navbar.profile.read")}
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    ),
-    [theme, stats]
-  );
-
-  // Handle theme update
-  const handleUpdate = async (field, value) => {
-    try {
-      if (field === 'theme') {
-        const { error } = await supabase
-          .from('profiles')
-          .update({ theme: value })
-          .eq('id', user.id);
-
-        if (error) throw error;
-        window.location.reload();
-      }
-    } catch (error) {
-      console.error('Error updating theme:', error);
-    }
-  };
 
   // Fetch version on mount
   useEffect(() => {
@@ -586,7 +449,7 @@ export default function Navbar({
                 <div className="p-2">
                   {/* Theme Toggle */}
                   <button
-                    onClick={() => handleUpdate("theme", theme === "dark" ? "light" : "dark")}
+                    onClick={() => updateTheme(theme === "dark" ? "light" : "dark")}
                     className={`w-full p-3 rounded-lg text-sm flex items-center justify-between transition-colors
                       ${
                         theme === "dark"
@@ -725,5 +588,15 @@ export default function Navbar({
         </div>
       </div>
     </nav>
+  );
+}
+
+export default function Navbar(props) {
+  return (
+    <Suspense fallback={
+      <div className="h-16 bg-gray-100 dark:bg-gray-800 animate-pulse" />
+    }>
+      <NavbarContent {...props} />
+    </Suspense>
   );
 } 
